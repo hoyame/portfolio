@@ -22,7 +22,7 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={`Hoyame Zouhari`}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -30,18 +30,13 @@ export default function Page() {
                 text={DATA.description}
               />
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
+            
           </div>
         </div>
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className="text-xl font-bold">About</h2>
+          <h2 className="text-xl font-bold">À propos</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
@@ -52,7 +47,7 @@ export default function Page() {
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-xl font-bold">Expériences Professionnelles</h2>
           </BlurFade>
           {DATA.work.map((work, id) => (
             <BlurFade
@@ -111,6 +106,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+      {
+      /*
       <section id="projects">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
@@ -195,6 +192,8 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
+      */
+      }
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -203,18 +202,17 @@ export default function Page() {
                 Contact
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Get in Touch
+                Contactez-moi
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Just shoot me a dm{" "}
+              Si vous souhaitez me contacter par mail, n'hésitez pas à m'envoyer un message à{" "}
                 <Link
-                  href={DATA.contact.social.X.url}
+                  href={DATA.contact.social.email.url}
                   className="text-blue-500 hover:underline"
                 >
-                  with a direct question on twitter
-                </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all
-                soliciting.
+                  l'adresse indiquée.
+                </Link>
+                Je reste disponible pour répondre à toutes vos questions, échanger sur des opportunités professionnelles ou discuter de tout autre sujet pertinent. Je m'efforcerai de vous répondre dans les plus brefs délais afin d'assurer une communication efficace et fluide.
               </p>
             </div>
           </BlurFade>
