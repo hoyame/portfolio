@@ -205,14 +205,14 @@ export default function Page() {
                 Contactez-moi
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Si vous souhaitez me contacter par mail, n'hésitez pas à m'envoyer un message à{" "}
+              Si vous souhaitez me contacter par mail, n{"'"}hésitez pas à m{"'"}envoyer un message à{" "}
                 <Link
                   href={DATA.contact.social.email.url}
                   className="text-blue-500 hover:underline"
                 >
-                  l'adresse indiquée.
+                  l{"'"}adresse indiquée.
                 </Link>
-                Je reste disponible pour répondre à toutes vos questions, échanger sur des opportunités professionnelles ou discuter de tout autre sujet pertinent. Je m'efforcerai de vous répondre dans les plus brefs délais afin d'assurer une communication efficace et fluide.
+                Je reste disponible pour répondre à toutes vos questions, échanger sur des opportunités professionnelles ou discuter de tout autre sujet pertinent. Je m{"'"}efforcerai de vous répondre dans les plus brefs délais afin d{"'"}assurer une communication efficace et fluide.
               </p>
             </div>
           </BlurFade>
