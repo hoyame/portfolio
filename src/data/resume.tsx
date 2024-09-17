@@ -27,6 +27,12 @@ export const DATA = {
     "IA Tools",
     "Git",
   ],
+  langages: [
+    "Français",
+    "Italien",
+    "Arabe",
+    "Anglais (compréhension normale, expression orale difficile)"
+  ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
@@ -121,30 +127,6 @@ export const DATA = {
         "Développement d'interfaces utilisateurs pour intégration sur un serveur de jeu. Compétences : Design d’interface utilisateur, Développement front-end.",
     },
     {
-      company: "BlueVinity - VinityLife - AdversityLife",
-      href: "",
-      badges: [],
-      location: "À distance",
-      title: "Owner and Manager of a Multiplayer Game Server",
-      logoUrl: "https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8971o8789584a4/287d4193bd6308e0b4b54393513a1ae5f8c8ac14.jpg",
-      start: "Janvier 2018",
-      end: "Septembre 2019",
-      description:
-        "Gestion complète d'un serveur de jeu, incluant la configuration et l'optimisation des serveurs, la gestion de la communauté, et la coordination d'une équipe de modérateurs et de développeurs. Création et gestion d'une boutique en jeu, développement de stratégies marketing pour attirer de nouveaux joueurs. Compétences : Gestion des services informatiques, Gestion de projet, Gestion d’équipe.",
-    },
-    {
-      company: "DreamLand",
-      href: "",
-      badges: [],
-      location: "Hybride",
-      title: "Manager of a Multiplayer Game Server",
-      logoUrl: "https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8971o8789584a4/287d4193bd6308e0b4b54393513a1ae5f8c8ac14.jpg",
-      start: "Novembre 2017",
-      end: "Décembre 2017",
-      description:
-        "Gestion d'un serveur de jeu, mise en place de stratégies marketing et gestion de la communauté. Compétences : Gestion des services informatiques, Gestion de projet.",
-    },
-    {
       company: "Chez Poncho",
       href: "",
       badges: [],
@@ -179,22 +161,6 @@ export const DATA = {
       end: "Cursus arrêté",
     },
     {
-      school: "Lycée Marlioz",
-      href: "",
-      degree: "2nde Générale",
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy2kJCqgM75H0bKjGSOzz5BXQq2awYJ0k-eQ&s",
-      start: "2022",
-      end: "2023",
-    },
-    {
-      school: "Collège Sainte Anne Savoisienne",
-      href: "",
-      degree: "3ème Professionnelle",
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy2kJCqgM75H0bKjGSOzz5BXQq2awYJ0k-eQ&s",
-      start: "2021",
-      end: "2022",
-    },
-    {
       school: "Autoformation en programmation",
       href: "https://openclassrooms.com",
       degree: "Formation en programmation (OpenClassrooms)",
@@ -202,6 +168,68 @@ export const DATA = {
       start: "2016",
       end: "2021",
     },   
+  ],
+  projets: [
+    {
+      company: "Hoxtio",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Founder & CEO",
+      logoUrl: "https://avatars.githubusercontent.com/u/168445066?s=200&v=4",
+      start: "Fevrier 2022",
+      end: "En cours",
+      description:
+        "IT Company",
+    },
+    {
+      company: "VelocityRP",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Owner and Manager of a Multiplayer Game Server",
+      logoUrl: "https://avatars.githubusercontent.com/u/112497749?s=200&v=4",
+      start: "Juin 2021",
+      end: "Fevrier 2021",
+      description:
+        "Gestion complète d'un serveur de jeu, incluant la configuration et l'optimisation des serveurs, la gestion de la communauté, et la coordination d'une équipe de modérateurs et de développeurs. Création et gestion d'une boutique en jeu, développement de stratégies marketing pour attirer de nouveaux joueurs. Compétences : Gestion des services informatiques, Gestion de projet, Gestion d’équipe.",
+    },
+    {
+      company: "AdversityLife",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Owner and Manager of a Multiplayer Game Server",
+      logoUrl: "https://pbs.twimg.com/profile_images/1194972413055946754/qpdV5B-S_400x400.jpg",
+      start: "Septembre 2019",
+      end: "Décembre 2019",
+      description:
+        "Gestion complète d'un serveur de jeu, incluant la configuration et l'optimisation des serveurs, la gestion de la communauté, et la coordination d'une équipe de modérateurs et de développeurs. Création et gestion d'une boutique en jeu, développement de stratégies marketing pour attirer de nouveaux joueurs. Compétences : Gestion des services informatiques, Gestion de projet, Gestion d’équipe.",
+    },
+    {
+      company: "BlueVinity - VinityLife",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Owner and Manager of a Multiplayer Game Server",
+      logoUrl: "https://repository-images.githubusercontent.com/202152507/bb6dd500-21c6-11ea-86e4-106d1c32eb85",
+      start: "Janvier 2018",
+      end: "Septembre 2019",
+      description:
+        "Gestion complète d'un serveur de jeu, incluant la configuration et l'optimisation des serveurs, la gestion de la communauté, et la coordination d'une équipe de modérateurs et de développeurs. Création et gestion d'une boutique en jeu, développement de stratégies marketing pour attirer de nouveaux joueurs. Compétences : Gestion des services informatiques, Gestion de projet, Gestion d’équipe.",
+    },
+    {
+      company: "DreamLand",
+      href: "",
+      badges: [],
+      location: "Hybride",
+      title: "Manager of a Multiplayer Game Server",
+      logoUrl: "https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8971o8789584a4/287d4193bd6308e0b4b54393513a1ae5f8c8ac14.jpg",
+      start: "Novembre 2017",
+      end: "Décembre 2017",
+      description:
+        "Gestion d'un serveur de jeu, mise en place de stratégies marketing et gestion de la communauté. Compétences : Gestion des services informatiques, Gestion de projet.",
+    },
   ],
   projects: [
     {
