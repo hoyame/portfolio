@@ -3,9 +3,9 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
   name: "Hoyame Zouhari",
-  initials: "DV",
-  url: "https://dillion.io",
-  location: "San Francisco, CA",
+  initials: "HZ",
+  url: "",
+  location: "Aix-les-Bains, France",
   locationLink: "https://www.google.com/maps/place/sanfrancisco",
   description:
     "Software Engineer & CEO of Hoxtio",
