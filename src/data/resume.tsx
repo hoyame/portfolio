@@ -4,7 +4,7 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 export const DATA = {
   name: "Hoyame Zouhari",
   initials: "HZ",
-  url: "",
+  url: "https://hoyame.com",
   location: "Aix-les-Bains, France",
   locationLink: "https://www.google.com/maps/place/sanfrancisco",
   description:
