@@ -177,7 +177,7 @@ export const DATA = {
       location: "À distance",
       title: "Founder & CEO",
       logoUrl: "https://avatars.githubusercontent.com/u/168445066?s=200&v=4",
-      start: "Fevrier 2022",
+      start: "Fevrier 2024",
       end: "En cours",
       description:
         "IT Company",
@@ -189,8 +189,8 @@ export const DATA = {
       location: "À distance",
       title: "Owner and Manager of a Multiplayer Game Server",
       logoUrl: "https://avatars.githubusercontent.com/u/112497749?s=200&v=4",
-      start: "Juin 2021",
-      end: "Fevrier 2021",
+      start: "Juin 2022",
+      end: "Fevrier 2023",
       description:
         "Gestion complète d'un serveur de jeu, incluant la configuration et l'optimisation des serveurs, la gestion de la communauté, et la coordination d'une équipe de modérateurs et de développeurs. Création et gestion d'une boutique en jeu, développement de stratégies marketing pour attirer de nouveaux joueurs. Compétences : Gestion des services informatiques, Gestion de projet, Gestion d’équipe.",
     },
