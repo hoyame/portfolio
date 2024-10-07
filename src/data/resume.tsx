@@ -8,7 +8,7 @@ export const DATA = {
   location: "Aix-les-Bains, France",
   locationLink: "https://www.google.com/maps/place/sanfrancisco",
   description:
-    "Software Engineer & CEO of Hoxtio",
+    "Passionné par l'entrepreneuriat et toujours en quête de nouvelles opportunités.",
   summary:
     "J'ai quitté le parcours scolaire plus tôt pour me concentrer sur des apprentissages que je jugeais plus utiles. Pendant mon adolescence, j'ai acquis des compétences en gestion de communautés en ligne, en programmation, et en entrepreneuriat. J'ai ensuite tenté de réintégrer le système scolaire pour obtenir un diplôme en programmation, mais j'ai abandonné en raison de la longueur du cursus et du manque de pertinence que je percevais. Aujourd'hui, je souhaite développer mes compétences dans les domaines des relations humaines, du commerce, ainsi que dans la gestion d'équipes et d'entreprises.",
   avatarUrl: "/me.png",
