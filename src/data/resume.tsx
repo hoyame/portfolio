@@ -38,7 +38,7 @@ export const DATA = {
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {
-    email: "hoyame@hoxtio.com",
+    email: "contact@hoyame.fr",
     tel: "+33 6 02 22 78 25",
     social: {
       GitHub: {
@@ -70,7 +70,7 @@ export const DATA = {
       },
       email: {
         name: "Send Email",
-        url: "mailto:hoyame@hoxtio.com",
+        url: "mailto:contact@hoyame.fr",
         icon: Icons.email,
 
         navbar: false,
