@@ -27,6 +27,14 @@ export const DATA = {
     "IA Tools",
     "Git",
   ],
+  softSkills: [
+    "Créativité",
+    "Esprit d'équipe",
+    "Communication",
+    "Adaptabilité",
+    "Management",
+    "Négociation"
+  ],
   langages: [
     "Français",
     "Italien",
@@ -77,6 +85,32 @@ export const DATA = {
       },
     },
   },
+  business: [
+    {
+      company: "HMA Greater",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Président / CEO",
+      logoUrl: "https://avatars.githubusercontent.com/u/192326282?s=200&v=4",
+      start: "Novembre 2024",
+      end: "En cours",
+      description:
+        "Groupe spécialisé dans le transport, la location, le commerce et le nettoyage.",
+    },
+    {
+      company: "Hoxtio",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Président / CEO",
+      logoUrl: "https://avatars.githubusercontent.com/u/168445066?s=200&v=4",
+      start: "Fevrier 2024",
+      end: "En cours",
+      description:
+        "Entreprise spécialisée dans l'informatique, intégrant la programmation, l'intelligence artificielle, le design et la publicité.",
+    },
+  ],
   work: [
     {
       company: "General Electric",
@@ -170,18 +204,6 @@ export const DATA = {
     },   
   ],
   projets: [
-    {
-      company: "Hoxtio",
-      href: "",
-      badges: [],
-      location: "À distance",
-      title: "Founder & CEO",
-      logoUrl: "https://avatars.githubusercontent.com/u/168445066?s=200&v=4",
-      start: "Fevrier 2024",
-      end: "En cours",
-      description:
-        "IT Company",
-    },
     {
       company: "VelocityRP",
       href: "",
