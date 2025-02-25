@@ -86,13 +86,26 @@ export const DATA = {
     },
   },
   business: [
+    
+    {
+      company: "Tavifleet's",
+      href: "",
+      badges: [],
+      location: "À distance",
+      title: "Président",
+      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQF-q-W-r_FpKQ/company-logo_200_200/company-logo_200_200/0/1738417180432?e=1748476800&v=beta&t=8X3eV7Dpf135AyJLFGAIV1jS9xl137xtogXwxtwTmXw",
+      start: "Janvier 2025",
+      end: "En cours",
+      description:
+        "Entreprise dediée au convoyage de véhicules.",
+    },
     {
       company: "HMA Greater",
       href: "",
       badges: [],
       location: "À distance",
-      title: "Président / CEO",
-      logoUrl: "https://avatars.githubusercontent.com/u/192326282?s=200&v=4",
+      title: "Président",
+      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQFbYktX28LSnw/company-logo_200_200/B4EZU.IORkHMAI-/0/1740504098393/hmagreater_logo?e=1748476800&v=beta&t=GnlHuskEedPjE-WJQYDNhl8STiMWgA7fi6R0XKEfsco",
       start: "Novembre 2024",
       end: "En cours",
       description:
@@ -103,8 +116,8 @@ export const DATA = {
       href: "",
       badges: [],
       location: "À distance",
-      title: "Président / CEO",
-      logoUrl: "https://avatars.githubusercontent.com/u/168445066?s=200&v=4",
+      title: "Chief Executive Officier",
+      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQFMwAETodfHPQ/company-logo_200_200/B4EZU0UxR0G0AI-/0/1740339615403/hoxtio_logo?e=1748476800&v=beta&t=LCaDQor_HsMzG31r07uLUpnjt5MPAIBFIWkk1acFm8E",
       start: "Fevrier 2024",
       end: "En cours",
       description:
