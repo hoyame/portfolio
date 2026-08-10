@@ -2,6 +2,7 @@ import { HackathonCard } from "@/components/hackathon-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
+import { ProjectsSection } from "@/components/projects-section";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -44,55 +45,8 @@ export default function Page() {
           </Markdown>
         </BlurFade>
       </section>
-      <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Expériences Professionnelles</h2>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={work.company}
-              delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-            >
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                badges={work.badges}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
       <section id="projets">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Projets</h2>
-          </BlurFade>
-          {DATA.projets.map((projet, id) => (
-             <BlurFade
-             key={projet.company}
-             delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-           >
-             <ResumeCard
-               key={projet.company}
-               logoUrl={projet.logoUrl}
-               altText={projet.company}
-               title={projet.company}
-               subtitle={projet.title}
-               href={projet.href}
-               badges={projet.badges}
-               period={`${projet.start} - ${projet.end ?? "Present"}`}
-               description={projet.description}
-             />
-           </BlurFade>
-          ))}
-        </div>
+        <ProjectsSection delay={BLUR_FADE_DELAY * 7} />
       </section>
       <section id="education">
         <div className="flex min-h-0 flex-col gap-y-3">
@@ -131,10 +85,38 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="skills">
+      <section id="stack">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Hard Skills</h2>
+            <h2 className="text-xl font-bold">Stack technique</h2>
+          </BlurFade>
+          <div className="flex flex-col gap-y-2.5">
+            {DATA.techStack.map((group, id) => (
+              <BlurFade
+                key={group.label}
+                delay={BLUR_FADE_DELAY * 10 + id * 0.05}
+              >
+                <div className="flex flex-col gap-1 sm:flex-row sm:gap-3">
+                  <p className="shrink-0 pt-0.5 text-xs font-semibold text-muted-foreground sm:w-40">
+                    {group.label}
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {group.items.map((item) => (
+                      <Badge key={item} variant="secondary">
+                        {item}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="hard-skills">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 9}>
+            <h2 className="text-xl font-bold">Compétences techniques</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1">
             {DATA.skills.map((skill, id) => (
@@ -258,12 +240,12 @@ export default function Page() {
                 Contactez-moi
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              N{"'"}hésitez pas à prendre rendez-vous pour me contacter {" "}
+              N{"'"}hésitez pas à m{"'"}écrire à{" "}
                 <Link
-                  href={"https://calendly.com/hoyame/30min"}
+                  href={`mailto:${DATA.contact.email}`}
                   className="text-blue-500 hover:underline"
                 >
-                  ici {"!"}
+                  {DATA.contact.email}
                 </Link>
               </p>
             </div>

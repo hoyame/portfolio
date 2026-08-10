@@ -1,0 +1,1529 @@
+{
+  "$schema": "https://hoyame.com/schemas/portfolio-projects.v1.json",
+  "meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-08-10",
+    "author": {
+      "name": "Hoyame Zouhari",
+      "email": "contact@hmagreater.com",
+      "github": "hoyame",
+      "organizations": ["HMA-Greater", "hoxtio", "hoxtio-env", "hoxtiogrp", "Zone-819"]
+    },
+    "source": "Analyse statique du dossier de travail local (~/Env)",
+    "scope": "Projets écrits par l'auteur. Les clones et forks tiers non modifiés sont exclus.",
+    "excluded": [
+      { "name": "cal.com", "reason": "Clone amont de calcom/cal.com (14 315 commits tiers)" },
+      { "name": "bolt.diy", "reason": "Clone amont du projet open-source bolt.diy" },
+      { "name": "shadcn-ui/ui", "reason": "Clone amont du monorepo shadcn/ui" },
+      { "name": "phone", "reason": "Fork de bmcmahen/react-iphone (crédité dans le README)" },
+      { "name": "gtav-scripts", "reason": "Corpus de scripts décompilés propriétaires (Rockstar Games)" },
+      { "name": "fivem/bs1 et Toaster", "reason": "Serveurs FiveM composés majoritairement de ressources tierces et sous escrow" },
+      { "name": "hmagreater, bvlck.studio", "reason": "Sites Framer no-code aspirés, aucun code écrit" },
+      { "name": "ed/my-app, barber-destroyer, hoyame-ui-v2 (stub)", "reason": "Dossiers vides ou boilerplate non démarré" }
+    ],
+    "stats": {
+      "projectCount": 33,
+      "featuredCount": 11,
+      "categories": ["saas", "app-metier", "site-web", "outil-cli", "mobile", "gaming", "infrastructure", "creatif"],
+      "yearsCovered": "2024 – 2026"
+    },
+    "fieldGuide": {
+      "originality": "original | derive-template | genere-lowcode",
+      "status": "production | livre | dev-actif | prototype | archive",
+      "confidence": "Niveau de certitude de l'analyse automatique : haute | moyenne"
+    }
+  },
+
+  "projects": [
+    {
+      "slug": "manager",
+      "name": "Manager",
+      "tagline": "Back-office modulaire d'automatisation d'entreprise",
+      "category": "saas",
+      "domain": "Gestion d'entreprise / ERP interne",
+      "summary": "Plateforme interne qui centralise la comptabilité (collecte automatique des justificatifs), la prospection B2B, l'emailing multi-comptes, la supervision des projets clients et l'infrastructure cloud (Supabase, Netlify, IONOS, GitHub, Stripe). Conçue comme un hub : elle pilote ou consomme la plupart des autres projets de l'écosystème.",
+      "period": { "start": "2026-01", "end": "2026-03", "durationMonths": 3 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception, développement full-stack, déploiement et exploitation",
+      "repository": { "host": "github", "owner": "HMA-Greater", "name": "manager", "private": true },
+      "metrics": { "commits": 27, "sourceFiles": 51, "linesOfCode": 7588, "apiRoutes": 14, "modules": 11 },
+      "stack": {
+        "languages": ["TypeScript", "SQL"],
+        "backend": ["Node.js", "Express 5", "tsx (ESM)"],
+        "frontend": ["Next.js 16", "React 19", "Tailwind CSS 4", "shadcn/ui", "Radix UI", "Recharts", "dnd-kit", "SWR", "Jotai"],
+        "database": ["Supabase (PostgreSQL)", "Stockage JSON local"],
+        "auth": ["Supabase Auth"],
+        "infra": ["Caddy (reverse proxy)", "Auto-hébergement VPS", "Daemon + rotation de logs"],
+        "buildOutput": "Next.js en export statique + API Express séparée"
+      },
+      "architecture": {
+        "type": "Monorepo bicéphale",
+        "description": "API REST Express modulaire (contrat MODULE_NAME / run() par module) consommée par un dashboard Next.js statique via NEXT_PUBLIC_API_URL. Le CLI hoycli est vendorisé et piloté par spawn.",
+        "layers": [
+          "src/modules/* — logique métier isolée par domaine",
+          "src/api/routes/* — exposition REST",
+          "dashboard/ — Next.js 16, export statique, PWA",
+          "vendor/cli-mainter — CLI embarqué"
+        ]
+      },
+      "features": [
+        "Récupération automatique des factures Stripe payées (PDF classés par année)",
+        "Scan IMAP des boîtes mail, filtrage par mots-clés et extraction des pièces jointes comptables",
+        "Nommage normalisé des justificatifs (YYYY-MM-DD_fournisseur_montantDEVISE.pdf), sans écrasement",
+        "Prospection B2B via l'API Pappers + scraper de sites (regex email/téléphone FR, liste d'exclusion)",
+        "Pipeline de statuts prospect : available → contacted → negotiating → won/lost",
+        "Emailing multi-comptes avec signatures HTML, correction de texte par OpenAI, envoi via Resend/SES",
+        "Daemon keepalive : ping périodique des projets Supabase pour éviter leur mise en veille",
+        "Gestion DNS IONOS, sites Netlify, transfert de dépôts GitHub",
+        "Fiches projet client agrégeant Netlify + IONOS + Supabase + GitHub + charges + todos",
+        "Facturation Stripe multi-comptes et suivi des ventes commerciales"
+      ],
+      "integrations": ["Stripe", "Supabase", "OpenAI", "Resend", "AWS SES", "IMAP (imapflow)", "Pappers", "Netlify API", "IONOS DNS API", "GitHub API", "Caddy"],
+      "highlights": [
+        "Architecture modulaire à contrat unique permettant d'ajouter un domaine métier sans toucher au cœur",
+        "Automatisation comptable de bout en bout : de la boîte mail au dossier de justificatifs classés",
+        "Dashboard PWA en export statique (aucun serveur Next.js à maintenir)",
+        "Scripts d'exploitation maison : dev.sh/prod.sh avec daemon, PID files, statut, logs et rotation à 10 Mo"
+      ],
+      "tags": ["automatisation", "erp", "comptabilité", "scraping", "openai", "stripe", "self-hosted"],
+      "featured": true
+    },
+
+    {
+      "slug": "baraka-food",
+      "name": "Baraka Food",
+      "tagline": "Système complet de commande et d'affichage pour restauration rapide",
+      "category": "app-metier",
+      "domain": "Restauration / point de vente",
+      "summary": "Logiciel multi-écrans déployé sur site chez un fast-food : menu boards animés au-dessus du comptoir, prise de commande en salle, écran cuisine temps réel, suivi de commande par le client sur son téléphone via QR code, et impression thermique des tickets. Architecture hybride local/cloud.",
+      "period": { "start": "2026-06", "end": "2026-08", "durationMonths": 2 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception produit, développement full-stack, packaging et déploiement chez le client",
+      "repository": { "host": "github", "owner": "hoyame", "name": "baraka-food", "private": true },
+      "metrics": { "commits": 20, "sourceFiles": 115, "linesOfCode": 10708, "apps": 5 },
+      "stack": {
+        "languages": ["TypeScript", "JavaScript", "SQL", "SCSS"],
+        "frontend": ["Vite 8", "React 19", "React Router 7", "SCSS", "Framer Motion", "Next.js 15 (×3 apps)", "Tailwind CSS"],
+        "backend": ["Express 5", "Node.js"],
+        "database": ["Supabase (PostgreSQL + Realtime + Storage)"],
+        "auth": ["Supabase Auth (compte de service staff)"],
+        "infra": ["Serveur local Windows on-premise", "Hébergement cloud pour les apps publiques", "Imprimantes réseau ESC/POS et LPD"]
+      },
+      "architecture": {
+        "type": "Multi-applications avec synchronisation temps réel",
+        "description": "Cinq applications autonomes partageant une même base Supabase, synchronisées par Supabase Realtime sans API métier intermédiaire. Écrans et poste staff tournent en local chez le restaurant ; site vitrine et suivi client sont hébergés en ligne.",
+        "apps": [
+          { "name": "Écrans (menu boards + orders + countdown)", "tech": "Vite + React 19 + SCSS", "port": 4000 },
+          { "name": "Staff (salle + cuisine)", "tech": "Next.js 15 standalone", "port": 4040 },
+          { "name": "Site vitrine", "tech": "Next.js 15 + Tailwind", "port": 4020 },
+          { "name": "Suivi client", "tech": "Next.js 15, route /[code]", "port": 4030 },
+          { "name": "Serveur + print listener", "tech": "Express 5 + ESC/POS", "port": 9100 }
+        ]
+      },
+      "features": [
+        "Trois menu boards animés (Framer Motion) + écran des commandes prêtes + compte à rebours",
+        "Back-office d'édition du menu : catégories, produits, prix, ingrédients, upload d'images",
+        "Prise de commande riche : tacos multi-viandes, sauces, gratinage, suppléments, retrait d'ingrédients, formules, menu enfant",
+        "Écran cuisine temps réel avec statuts Démarrer / Prêt",
+        "Suivi client en direct sur mobile (5 états, bip et vibration à chaque changement)",
+        "Annonce vocale des commandes prêtes via l'API Web Speech",
+        "Impression automatique des tickets en ESC/POS brut (port 9100) et LPD (port 515)",
+        "QR code de suivi encodé directement dans le flux imprimante",
+        "Numérotation des commandes par séquence PostgreSQL et fonction security definer",
+        "Site vitrine public dont le menu est synchronisé depuis la base"
+      ],
+      "integrations": ["Supabase (DB, Realtime, Storage, Auth)", "Imprimantes ESC/POS", "Protocole LPD", "Web Speech API"],
+      "dataModel": {
+        "tables": [
+          { "name": "menu", "note": "Singleton jsonb (id=1), menu complet versionné" },
+          { "name": "orders", "note": "code unique, status (attente|preparation|pret_cuisine|disponible|recuperee), items jsonb, total" }
+        ],
+        "notes": "Replica identity full + publication supabase_realtime sur les deux tables. RLS durcie : lecture publique anonyme, écriture réservée aux comptes authentifiés."
+      },
+      "highlights": [
+        "Impression thermique bas niveau écrite à la main (ESC/POS et LPD), sans librairie",
+        "Temps réel de bout en bout : une commande saisie en salle apparaît instantanément en cuisine et sur le téléphone du client",
+        "Packaging de livraison automatisé : script produisant un zip prêt à installer sur le PC du restaurant avec deux fichiers .bat",
+        "Campagne de recette formalisée en deux passes documentée dans le dépôt",
+        "Commandes éphémères : purge automatique après récupération"
+      ],
+      "tags": ["temps-réel", "supabase", "escpos", "on-premise", "restauration", "pwa"],
+      "featured": true
+    },
+
+    {
+      "slug": "hoxtio-commercials",
+      "name": "Hoxtio Portal Commercials",
+      "tagline": "SaaS de gestion des apporteurs d'affaires et de leurs commissions",
+      "category": "saas",
+      "domain": "Force de vente / commissionnement",
+      "summary": "Plateforme où des commerciaux indépendants s'inscrivent, passent un onboarding avec pièces justificatives, gèrent leurs prospects et clients, enregistrent une vente, génèrent un lien de paiement Stripe et suivent leurs commissions. Un espace admin valide les commerciaux et les ventes.",
+      "period": { "start": "2026-01", "end": "2026-02", "durationMonths": 2 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception, développement full-stack, sécurisation et mise en production",
+      "repository": { "host": "github", "owner": "hoxtio", "name": "hoxtio-portal-commercials", "private": true },
+      "metrics": { "commits": 21, "linesOfCode": 18000, "edgeFunctions": 2, "tables": 8 },
+      "stack": {
+        "languages": ["TypeScript", "SQL", "Deno"],
+        "frontend": ["Next.js 16", "React 19", "Tailwind CSS 4", "shadcn/ui", "Radix UI", "Motion", "Recharts", "TanStack Table", "React Hook Form", "Zod", "nuqs", "Jotai"],
+        "backend": ["Supabase Edge Functions (Deno)"],
+        "database": ["Supabase (PostgreSQL, RLS)"],
+        "auth": ["Supabase Auth", "MFA TOTP obligatoire"],
+        "payments": ["Stripe (Payment Links + webhooks)"],
+        "mobile": ["Capacitor 6 (iOS / Android)"],
+        "infra": ["Netlify", "PWA"]
+      },
+      "architecture": {
+        "type": "Monorepo npm workspaces",
+        "description": "Application Next.js App Router unique attaquant Supabase directement depuis le client, avec deux Edge Functions Deno pour les opérations sensibles (création de lien de paiement, webhook Stripe) partageant des modules _shared (stripe, cors, supabase)."
+      },
+      "features": [
+        "Onboarding multi-étapes : identité, adresse, entreprise (SIRET, forme juridique, TVA), secteurs, langues, cibles",
+        "Collecte de documents de conformité : pièce d'identité, KBIS, RIB, attestation URSSAF, RC Pro",
+        "2FA TOTP imposée, avec redirection forcée tant qu'elle n'est pas configurée",
+        "Modification de l'IBAN protégée par un second facteur et horodatée",
+        "Gestion des prospects (pool commun, statuts, historique de contacts) et des clients",
+        "Saisie de vente sur catalogue de 4 offres avec taux de commission différenciés (7,5 % à 10 %)",
+        "Génération sécurisée de liens de paiement Stripe (vérification JWT + statut actif du commercial)",
+        "Webhook Stripe mettant à jour l'état de la vente et déclenchant le calcul de commission",
+        "Dashboard commercial : KPI, graphiques d'activité, tableau des ventes et commissions",
+        "Espace admin : validation ou rejet des commerciaux, policies dédiées sur les ventes"
+      ],
+      "integrations": ["Supabase", "Stripe", "Netlify", "Capacitor", "Vercel Analytics"],
+      "dataModel": {
+        "tables": [
+          { "name": "commercials", "note": "Identité, entreprise, secteurs (text[]), statut, URLs des 5 documents, IBAN/BIC avec horodatages de vérification" },
+          { "name": "sales", "note": "product_type, montant, monthly_fee, commission_rate/amount, références Stripe, statut" },
+          { "name": "commercial_payments", "note": "Reversements de commissions, sales_ids[], méthode, statut" },
+          { "name": "prospects, prospect_contacts, clients, sale_items, admins" }
+        ],
+        "notes": "RLS activée avec policies distinctes commercial/admin. Migration dédiée corrigeant une race condition sur la génération des numéros de commande."
+      },
+      "highlights": [
+        "Conformité pensée dès la conception : documents obligatoires, 2FA, traçabilité des modifications bancaires",
+        "Autorisation vérifiée côté serveur (Edge Function) avant toute création de lien de paiement",
+        "Compression des images côté client avant upload dans un bucket privé",
+        "Application web et mobile depuis une seule base de code via Capacitor"
+      ],
+      "tags": ["saas", "stripe", "supabase", "2fa", "rls", "commissions", "capacitor"],
+      "featured": true
+    },
+
+    {
+      "slug": "tavifleets",
+      "name": "Tavifleets",
+      "tagline": "Plateforme de convoyage de véhicules multi-rôles",
+      "category": "saas",
+      "domain": "Transport / logistique automobile",
+      "summary": "Portail unifié de convoyage de véhicules réunissant quatre rôles : staff/admin, commerciaux apporteurs d'affaires, gestionnaires de flotte et clients. Couvre la réservation, la facturation, les paiements Stripe (dont paiements groupés) et le calcul des commissions, avec un site public et un blog headless.",
+      "period": { "start": "2025-02", "end": "2026-02", "durationMonths": 12 },
+      "status": "production",
+      "originality": "derive-template",
+      "basedOn": { "name": "Tailwind UI — Radiant", "type": "Template commercial", "note": "Le site public reprend le template ; toute la couche portail, Supabase, Stripe et commissions est un ajout original." },
+      "confidence": "haute",
+      "role": "Conception, développement full-stack, migration d'architecture",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "tavifleets", "private": true },
+      "metrics": { "commits": 22, "sourceFiles": 210, "linesOfCode": 42018, "roles": 4 },
+      "stack": {
+        "languages": ["TypeScript", "SQL"],
+        "frontend": ["Next.js 14 (App Router)", "React 18", "Tailwind CSS 4", "Headless UI", "Heroicons", "styled-components", "Framer Motion", "Recharts", "Sonner"],
+        "backend": ["Supabase Edge Functions"],
+        "database": ["Supabase (PostgreSQL)"],
+        "auth": ["Supabase Auth avec validation manuelle des comptes"],
+        "cms": ["Sanity 3 (Studio embarqué, typegen)"],
+        "payments": ["Stripe (Checkout, paiements groupés, webhooks)"],
+        "maps": ["Google Maps JS API"],
+        "documents": ["jsPDF + jspdf-autotable"]
+      },
+      "architecture": {
+        "type": "Next.js App Router avec route groups par rôle",
+        "description": "Groupes (auth) et (dashboard) séparant staff/* et sales/*, contexte d'authentification exposant isStaff / isSalesperson / isFleetManager / isClient, Studio Sanity monté sur /studio, opérations de paiement isolées en Edge Functions."
+      },
+      "features": [
+        "Inscription avec workflow de validation manuelle des comptes (account requests)",
+        "Création et suivi de réservations de convoyage",
+        "Gestion des clients rattachés à un commercial responsable",
+        "Génération de factures PDF côté client",
+        "Paiements Stripe unitaires et paiements groupés multi-missions",
+        "Calcul, suivi et reversement des commissions commerciales",
+        "Dashboards avec KPI et graphiques par rôle",
+        "Blog headless Sanity avec Studio intégré et flux RSS",
+        "Tarification dynamique documentée : distance, flexibilité, type de véhicule, demande",
+        "Pages légales complètes (mentions, CGU, politique de confidentialité)"
+      ],
+      "integrations": ["Supabase", "Stripe", "Sanity", "Google Maps"],
+      "dataModel": {
+        "tables": ["staffs (role admin|support|manager)", "salespeople (commission_rate, IBAN/BIC, SIRET, TVA, statuts d'activation)", "fleetsmanagers", "clients (responsible_id → salespeople)", "bookings", "payments", "commissions"]
+      },
+      "highlights": [
+        "Système de rôles à quatre niveaux avec parcours d'inscription et permissions distincts",
+        "Paiements groupés : une seule session Stripe pour plusieurs missions",
+        "Migration assumée d'une SPA Vite vers Next.js App Router pour le SEO et le rendu serveur",
+        "Cahier des charges complet formalisé avant développement"
+      ],
+      "related": ["tavifleets-app"],
+      "tags": ["saas", "logistique", "stripe", "supabase", "sanity", "google-maps", "multi-rôles"],
+      "featured": true
+    },
+
+    {
+      "slug": "tavifleets-app",
+      "name": "Tavifleets Portal (v1)",
+      "tagline": "Première itération SPA du portail de convoyage",
+      "category": "saas",
+      "domain": "Transport / logistique automobile",
+      "summary": "Version initiale du portail Tavifleets en SPA Vite, couvrant 33 pages réparties sur quatre rôles, avec un backend Node dédié à la synchronisation automatique des commissions et un packaging mobile Capacitor. Remplacée par la version Next.js.",
+      "period": { "start": "2025-02", "end": "2025-06", "durationMonths": 4 },
+      "status": "archive",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Développement full-stack",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "tavifleets-portal", "private": true },
+      "metrics": { "commits": 55, "sourceFiles": 104, "linesOfCode": 29348, "pages": 33 },
+      "stack": {
+        "languages": ["TypeScript", "JavaScript", "SQL"],
+        "frontend": ["Vite 5", "React 18", "React Router 6", "Tailwind CSS 3", "Headless UI", "Recharts", "Zod"],
+        "backend": ["Node.js ESM (service de synchronisation)", "Supabase Edge Functions"],
+        "database": ["Supabase (PostgreSQL)"],
+        "payments": ["Stripe"],
+        "maps": ["Google Maps + Places Autocomplete"],
+        "documents": ["jsPDF", "html2pdf.js", "microinvoice"],
+        "mobile": ["Capacitor (android/ + ios/)"],
+        "ci": ["GitHub Actions (déploiement des Edge Functions)"]
+      },
+      "architecture": {
+        "type": "SPA + service backend de synchronisation",
+        "description": "Pages organisées par rôle (public, auth, sales, staff, fleet, shared), avec un backend Node service-role introduit explicitement pour retirer au front l'accès direct à Supabase sur les opérations sensibles."
+      },
+      "features": [
+        "33 pages réparties sur staff, commerciaux, gestionnaires de flotte et espace partagé",
+        "Création de réservation pour soi ou pour le compte d'un client",
+        "Synchronisation automatique des commissions par script avec modes dry-run, force et verbose",
+        "Paiements groupés et webhooks Stripe versionnés",
+        "Autocomplétion d'adresses via Google Places",
+        "Génération de factures PDF par plusieurs moteurs"
+      ],
+      "integrations": ["Supabase", "Stripe", "Google Maps / Places", "Capacitor"],
+      "highlights": [
+        "Documentation produit complète : cahier des charges, inventaire des pages et composants, guides de gestion du schéma",
+        "Refactoring architectural documenté : suppression de l'accès Supabase direct au profit d'un backend service-role",
+        "55 commits, la plus longue série de l'écosystème"
+      ],
+      "related": ["tavifleets"],
+      "tags": ["spa", "vite", "supabase", "stripe", "legacy"],
+      "featured": false
+    },
+
+    {
+      "slug": "blvck-studio-app",
+      "name": "Blvck Studio",
+      "tagline": "Réservation en ligne et file d'attente pour salon de coiffure",
+      "category": "app-metier",
+      "domain": "Beauté / prise de rendez-vous",
+      "summary": "Application de réservation pour un concept store coiffure-barbier, avec trois interfaces : clients (RDV en ligne et file d'attente sur place), coiffeurs (dashboard personnel) et administration. Inclut un système anti-fraude par empreinte d'appareil et un écran d'affichage temps réel en salon.",
+      "period": { "start": "2025-05", "end": "2025-08", "durationMonths": 4 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception, développement full-stack, micro-service email et déploiement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "blackstudio-app", "private": true },
+      "metrics": { "commits": 34, "sourceFiles": 47, "linesOfCode": 14748, "edgeFunctions": 9 },
+      "stack": {
+        "languages": ["TypeScript", "SQL"],
+        "frontend": ["Next.js 15", "React 19", "Tailwind CSS 4", "Framer Motion", "react-native-web"],
+        "backend": ["Supabase Edge Functions (Deno)", "Fastify 4 (micro-service email)"],
+        "database": ["Supabase (PostgreSQL)"],
+        "auth": ["Supabase Auth", "Vérification email par code"],
+        "cache": ["Upstash Redis (rate limiting)"],
+        "infra": ["HTTPS Let's Encrypt avec fallback auto-signé", "API Key sur le micro-service"]
+      },
+      "architecture": {
+        "type": "Next.js + micro-service isolé",
+        "description": "Application Next.js pour les trois interfaces, 9 Edge Functions Deno pour les opérations sensibles (création de RDV, vérification de code, gestion des comptes barbiers, revue des RDV) et un micro-service Fastify autonome pour l'envoi d'emails, protégé par clé d'API et rate limiting Redis."
+      },
+      "features": [
+        "Tunnel de réservation : catégorie homme/femme → barbier → prestation → créneau",
+        "Vérification de l'email par code à usage unique avant confirmation",
+        "Détection de réservations suspectes par empreinte d'appareil et score de risque",
+        "Mise en revue manuelle des RDV à risque, arbitrée par l'admin ou le barbier",
+        "File d'attente walk-in pour les clients sans rendez-vous (demande, acceptation, refus)",
+        "Écran d'affichage en salon : client en cours, prochain client, temps d'attente estimé, coupes du jour",
+        "Dashboard coiffeur : agenda, annulations, indisponibilités, décalage de journée entière",
+        "Back-office admin : barbiers, prestations, comptes staff, statistiques",
+        "Emails transactionnels via micro-service dédié avec limitation de débit"
+      ],
+      "integrations": ["Supabase", "Upstash Redis", "SMTP / Nodemailer", "Let's Encrypt"],
+      "dataModel": {
+        "tables": ["barbers", "appointments (barber_id, service_id, datetime, client, status)", "staff_users (enum staff_role admin|barber, force_password_change, is_active)"],
+        "notes": "Vue staff_users_with_auth joignant auth.users, trigger set_updated_at."
+      },
+      "highlights": [
+        "Anti-fraude par empreinte d'appareil avec scoring et workflow de revue humaine",
+        "Séparation nette des responsabilités : l'envoi d'emails est sorti de l'app dans un service Fastify indépendant",
+        "Écran temps réel pensé pour l'usage en salon, sans interaction",
+        "Partage de composants préparé pour une future app React Native (react-native-web)"
+      ],
+      "tags": ["réservation", "anti-fraude", "supabase", "fastify", "temps-réel"],
+      "featured": true
+    },
+
+    {
+      "slug": "tbd-chauffeurs",
+      "name": "TBD Chauffeurs",
+      "tagline": "Dématérialisation de la feuille hebdomadaire de tachygraphe",
+      "category": "mobile",
+      "domain": "Transport routier / conformité",
+      "summary": "Application mobile qui remplace l'enveloppe tachygraphe papier remplie chaque semaine par les chauffeurs poids lourd : saisie de la grille horaire d'activité, suivi du gasoil, repas et couchages, calculs automatiques, puis régénération d'un PDF A4 paysage fidèle au document officiel. Fonctionne intégralement hors ligne.",
+      "period": { "start": "2026-06", "end": "2026-08", "durationMonths": 2 },
+      "status": "dev-actif",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Rédaction du cahier des charges, conception et développement mobile",
+      "repository": { "host": "github", "owner": "hoyame", "name": "tbd-chauffeurs", "private": true },
+      "metrics": { "commits": 5, "sourceFiles": 38, "linesOfCode": 8800, "pdfTemplates": 5 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "mobile": ["Expo 56", "React Native 0.85", "React 19"],
+        "storage": ["AsyncStorage (100 % local)"],
+        "documents": ["expo-print (HTML → PDF)", "expo-sharing", "expo-mail-composer"],
+        "ui": ["Design system maison (theme, Field, TimeField, DateField, Sheet, TopBar)"],
+        "platforms": ["iOS", "Android"]
+      },
+      "architecture": {
+        "type": "Application mobile monolithique en couches",
+        "description": "Un écran racine avec navigation par bottom sheets maison, articulé en quatre couches : src/model (types et calculs métier), src/storage (persistance), src/pdf (moteurs de rendu HTML → PDF) et src/ui (design system).",
+        "note": "Une première approche PWA (Vite + IndexedDB + vite-plugin-pwa) a été abandonnée au profit du natif."
+      },
+      "features": [
+        "Grille d'activité 00h–24h par jour (repos / conduite / travail) avec saisie par segments",
+        "Boutons d'action rapide : début et fin de journée, accrocher/décrocher, dormir, repas",
+        "Volet gasoil : pleins, litres, kilométrage, consommation moyenne calculée",
+        "Repas midi et soir (lieu, km, pays, heure) et couchage nuit — usage transport international",
+        "Gestion des voyages avec événements et options",
+        "Génération de 5 documents PDF : feuille hebdomadaire, ordre de mission, tous voyages, récap hebdo, récap mensuel",
+        "Envoi du rapport hebdomadaire par email à l'exploitation",
+        "Profil chauffeur et parc véhicules persistés, archive des semaines",
+        "Export/import de données versionné"
+      ],
+      "integrations": ["Aucune API externe — architecture volontairement hors ligne"],
+      "dataModel": {
+        "entities": ["Profile {chauffeur, nCarte, nPermis}", "Vehicles {tracteur, remorque}", "Week {semaine, frais, gasoil[], jours}", "Day {lieux, km, heures, repas, nuit, activities{repos[], conduite[], travail[]}}", "GasoilRow", "Voyage"]
+      },
+      "highlights": [
+        "Génération PDF fidèle au document officiel (A4 paysage 842×595, sans marges) à partir de templates HTML",
+        "Fonctionnement 100 % hors ligne, adapté à un usage en cabine sans réseau",
+        "Calculs métier réels : heures par activité au quart d'heure, amplitude pondérée, report des kilomètres d'une semaine sur l'autre",
+        "Cahier des charges de 15 pages avec exigences numérotées et références aux règlements (CE) 561/2006 et (UE) 165/2014"
+      ],
+      "tags": ["react-native", "expo", "offline-first", "pdf", "transport", "conformité"],
+      "featured": true
+    },
+
+    {
+      "slug": "streamer-mngr",
+      "name": "StreamHub",
+      "tagline": "Plateforme de multistreaming avec compositing serveur et télémétrie GPS",
+      "category": "infrastructure",
+      "domain": "Streaming vidéo / broadcast",
+      "summary": "Chaîne complète de diffusion pour les lives d'un chauffeur routier : ingest RTMP depuis une caméra ou un drone, incrustation d'un HUD HTML rendu par un Chromium headless, encodage ffmpeg et restream simultané vers Twitch et Kick. Le HUD affiche en direct le chat multi-plateformes, les alertes, la musique Spotify et la position GPS du camion.",
+      "period": { "start": "2026-07", "end": "2026-07", "durationMonths": 1 },
+      "status": "dev-actif",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Architecture, développement et déploiement VPS",
+      "repository": { "host": "aucun (archives tar.gz)", "private": true },
+      "metrics": { "sourceFiles": 8, "linesOfCode": 852, "outputs": 2 },
+      "stack": {
+        "languages": ["JavaScript (Node.js 22, CommonJS)", "HTML/CSS"],
+        "media": ["MediaMTX (RTMP / WebRTC / HLS)", "ffmpeg / ffprobe", "Chromium headless via CDP", "Playwright"],
+        "backend": ["Serveurs http/https natifs (aucun framework)", "SSE", "WebSocket"],
+        "infra": ["VPS Linux", "systemd", "openssl", "déploiement rsync scripté"]
+      },
+      "architecture": {
+        "type": "Pipeline média orchestré",
+        "description": "Un orchestrateur interroge l'API MediaMTX toutes les 2 s pour détecter le flux entrant, lance le compositeur qui capture le HUD dans Chromium à 10 fps via CDP, l'incruste avec ffmpeg puis muxe la sortie vers un flux program redistribué en WebRTC et HLS, ainsi que vers les targets de restream.",
+        "components": ["src/index.js (orchestrateur + API + OAuth)", "src/compositor.js (ffmpeg + CDP)", "src/hub.js (bus SSE avec rejeu)", "src/telemetry.js", "src/dev.js (live-reload du HUD)"]
+      },
+      "features": [
+        "Détection automatique du flux entrant et démarrage ou redémarrage du compositing",
+        "HUD temps réel : chat agrégé Twitch + Kick, file d'alertes (follow, sub, bits), lecteur Spotify masqué si inactif",
+        "Télémétrie GPS depuis le téléphone (watchPosition + wake lock), vitesse diffusée en direct",
+        "Géocodage inverse Nominatim throttlé, badge de route affiché uniquement si le référentiel correspond",
+        "Régie web avec previews WebRTC côte à côte du flux brut et du flux final",
+        "Encodage adaptatif : videotoolbox sur macOS, libx264 veryfast zerolatency sur Linux",
+        "Installation VPS scriptée : Node 22, ffmpeg, MediaMTX, Chromium, unités systemd"
+      ],
+      "integrations": ["Twitch (chat IRC anonyme, Helix, EventSub WebSocket)", "Kick (API publique + Pusher)", "Spotify (OAuth avec refresh automatique)", "Nominatim / OpenStreetMap"],
+      "highlights": [
+        "Transparence de l'overlay obtenue par Emulation.setDefaultBackgroundColorOverride en CDP — le CSS seul ne suffit pas",
+        "Muxer tee ffmpeg avec global_header pour diffuser vers plusieurs destinations sans réencoder",
+        "Chat Twitch et Kick lus sans aucune clé d'API",
+        "Journal technique documentant 8 pièges résolus (choix de MediaMTX, détection des ffmpeg orphelins, contrainte de secure context pour la géolocalisation)"
+      ],
+      "tags": ["streaming", "ffmpeg", "webrtc", "rtmp", "twitch", "kick", "gps", "vps"],
+      "featured": true
+    },
+
+    {
+      "slug": "komertys",
+      "name": "Komertys",
+      "tagline": "Marketplace de missions commerciales et commissionnement",
+      "category": "saas",
+      "domain": "Force de vente / marketplace B2B",
+      "summary": "Portail où des commerciaux rejoignent la plateforme par une demande d'admission, sélectionnent des missions proposées par des entreprises clientes (avec taux de commission et délai de paiement), créent des commandes pour leurs clients finaux et génèrent un lien ou un QR code de paiement Stripe. Un back-office staff à quatre rangs administre l'ensemble.",
+      "period": { "start": "2025-03", "end": "2025-05", "durationMonths": 3 },
+      "status": "archive",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement full-stack",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "komertys", "private": true },
+      "metrics": { "commits": 11, "sourceFiles": 69, "linesOfCode": 10550, "migrations": 20 },
+      "stack": {
+        "languages": ["TypeScript", "SQL"],
+        "frontend": ["Vite 5", "React 18", "React Router 6", "Tailwind CSS 3", "lucide-react", "react-hot-toast", "qrcode.react"],
+        "database": ["Supabase (PostgreSQL + Storage)"],
+        "auth": ["Supabase Auth avec détection de rôle staff"],
+        "payments": ["Stripe (Payment Links)"]
+      },
+      "architecture": {
+        "type": "SPA à double arbre de composants",
+        "description": "Une seule application dont le routage bascule vers Dashboard (commercial) ou StaffDashboard (interne) selon une requête sur la table staff au moment de l'ouverture de session."
+      },
+      "features": [
+        "Demande d'admission commerciale multi-sections (personnel, professionnel, formation, complémentaire)",
+        "Catalogue de missions avec entreprise facturante, taux de commission, délai de paiement et produits associés",
+        "Création de commande pour un client particulier ou société, avec pièces jointes",
+        "Lien de paiement Stripe généré par commande et QR code affiché au client",
+        "Paiement ponctuel ou récurrent selon la configuration de la mission",
+        "Statistiques commerciales et filtres sur les commandes",
+        "Back-office staff complet : entreprises, produits, missions, commandes, admissions, équipe"
+      ],
+      "integrations": ["Supabase", "Stripe", "qrcode.react"],
+      "dataModel": {
+        "tables": ["staff (rank 1–4, is_active)", "admission_requests (4 blocs jsonb)", "companies + company_images", "products + product_images", "missions", "mission_products", "orders (client/billing/contact/service en jsonb, assets jsonb[])", "stripe_events"]
+      },
+      "highlights": [
+        "Modélisation par jsonb pour absorber des formulaires métier hétérogènes sans migration",
+        "QR code de paiement présenté directement au client final en rendez-vous",
+        "Support du multi-entreprise facturante sur une même plateforme",
+        "Projet contractualisé (contrat, annexes et recommandation joints au dépôt)"
+      ],
+      "related": ["hoxtio-commercials"],
+      "tags": ["marketplace", "stripe", "supabase", "qr-code", "commissions"],
+      "featured": false
+    },
+
+    {
+      "slug": "new-ui-fivem",
+      "name": "New UI FiveM",
+      "tagline": "Interface complète en React pour serveur de jeu FiveM",
+      "category": "gaming",
+      "domain": "Jeu vidéo / interface NUI",
+      "summary": "Toute la couche d'interface web d'un serveur de roleplay FiveM : plus de 27 vues couvrant le HUD, la création de personnage, l'inventaire avec drag & drop, la banque, le garage, les commerces, l'emploi et les compétences. Communication bidirectionnelle avec le moteur de jeu Lua, bundle obfusqué avant déploiement.",
+      "period": { "start": "2025-06", "end": "2026-04", "durationMonths": 11 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception UI/UX, développement front-end, pipeline de build",
+      "repository": { "host": "github", "owner": "hoyame", "name": "new-ui-fivem", "private": true },
+      "metrics": { "commits": 174, "sourceFiles": 142, "linesOfCode": 25986, "views": 27, "components": 31 },
+      "stack": {
+        "languages": ["TypeScript", "SCSS"],
+        "frontend": ["React 18", "React Router 6", "Redux Toolkit", "Zustand", "Framer Motion", "@dnd-kit", "progressbar.js"],
+        "build": ["Webpack 5", "ts-loader (transpileOnly)", "Babel", "sass-loader", "Terser"],
+        "security": ["javascript-obfuscator (config adaptée aux contraintes NUI)"],
+        "quality": ["ESLint 8", "Prettier 3"]
+      },
+      "architecture": {
+        "type": "NUI (interface web embarquée dans le jeu)",
+        "description": "Le moteur Lua pilote la navigation via SendNUIMessage capté par un listener message, et l'interface répond par des appels fetch vers les callbacks NUI. Deux stores coexistent : Redux Toolkit pour l'état global et Zustand pour l'inventaire.",
+        "contract": "Contrat Lua ↔ NUI documenté page par page avec le schéma exact des données attendues et les callbacks à implémenter."
+      },
+      "features": [
+        "HUD, compteur de vitesse, jauges de besoins, écran de mort, écran de chargement",
+        "Créateur de personnage complet : hérédité, visage, yeux, nez, cheveux, barbe",
+        "Barbier, maquillage et vêtements",
+        "Inventaire avec drag & drop, store dédié et gestion des quantités",
+        "Banque, garage, concessionnaire, location de véhicule, station-service, supérette",
+        "Boutique premium, système de parrainage, cinéma",
+        "Pôle emploi, compétences, statuts de société",
+        "Système de notifications, menus contextuels et boîtes de dialogue réutilisables"
+      ],
+      "integrations": ["Moteur FiveM (natives et callbacks NUI)"],
+      "highlights": [
+        "174 commits en conventional commits — le développement le plus soutenu de l'ensemble du portefeuille",
+        "Documentation d'intégration de 18 Ko décrivant le contrat de données de chaque écran",
+        "Obfuscation du bundle calibrée pour rester compatible avec le runtime NUI (options incompatibles écartées volontairement)",
+        "Écran de chargement séparé avec vidéo et bande son, packagé comme ressource indépendante"
+      ],
+      "tags": ["react", "webpack", "gaming", "fivem", "nui", "drag-and-drop", "obfuscation"],
+      "featured": true
+    },
+
+    {
+      "slug": "fivem-mocks",
+      "name": "fivem-mock",
+      "tagline": "Librairie de mocks générée pour les 6 439 natives FiveM",
+      "category": "outil-cli",
+      "domain": "Outillage de test / génération de code",
+      "summary": "Librairie qui simule l'intégralité des fonctions natives du runtime FiveM afin de tester du code de serveur de jeu en Jest, hors du jeu. Les mocks ne sont pas écrits à la main mais générés à partir de la documentation officielle, ce qui permet de les régénérer à chaque mise à jour du jeu.",
+      "period": { "start": "2026-01", "end": "2026-01", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "local", "private": true },
+      "metrics": { "sourceFiles": 56, "linesOfCode": 30136, "generatedFunctions": 6437, "handWrittenNatives": 80 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "testing": ["Jest 29", "ts-jest"],
+        "dependencies": "Aucune dépendance runtime"
+      },
+      "architecture": {
+        "type": "Pipeline de génération de code + librairie",
+        "pipeline": [
+          "fetch-natives — clone le dépôt officiel citizenfx/natives",
+          "parse-natives — analyse les fichiers markdown par namespace (nom, paramètres, types, retour)",
+          "generate-mocks — produit 44 fichiers TypeScript et 6 437 fonctions",
+          "native-overrides — les ~80 natives à véritable implémentation, écrites à la main",
+          "MockState — état du monde simulé (joueurs, peds, véhicules, blips)"
+        ]
+      },
+      "features": [
+        "Création et manipulation d'entités simulées : joueurs, peds, véhicules, blips",
+        "Traçage des appels : wasCalled, getCallCount, getCalls avec inspection des arguments",
+        "~80 natives réellement implémentées avec getters et setters synchronisés",
+        "Implémentation du véritable algorithme de hash joaat pour GetHashKey",
+        "Runtime événementiel mocké : on, emit, onNet, emitNet, TriggerEvent",
+        "Scheduler simulé (setTick / clearTick)",
+        "Intégration transparente : un alias tsconfig substitue la librairie au module @citizenfx, le code testé reste inchangé"
+      ],
+      "integrations": ["Documentation officielle citizenfx/natives"],
+      "highlights": [
+        "Approche par génération plutôt que par écriture manuelle : la librairie se met à jour d'une seule commande",
+        "Couverture exhaustive de la surface d'API du runtime (6 439 natives)",
+        "Substitution par alias tsconfig — aucune modification du code testé n'est nécessaire"
+      ],
+      "related": ["fivem-autonomous"],
+      "tags": ["typescript", "codegen", "jest", "mocking", "developer-tools"],
+      "featured": true
+    },
+
+    {
+      "slug": "fivem-autonomous",
+      "name": "fivem-kit",
+      "tagline": "CLI de développement autonome de serveur de jeu piloté par agent IA",
+      "category": "outil-cli",
+      "domain": "Outillage de développement / agents IA",
+      "summary": "Outil en ligne de commande conçu pour qu'un agent IA développe un serveur FiveM en boucle fermée : lire la tâche courante, écrire le code, le tester en sandbox grâce aux mocks, marquer la tâche terminée, passer à la suivante. Livré avec le gamemode TypeScript qu'il construit.",
+      "period": { "start": "2026-01", "end": "2026-01", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "fivem-autonomous", "private": true },
+      "metrics": { "commits": 14, "cliSourceFiles": 14, "cliLinesOfCode": 1211 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "cli": ["Commander 12", "chalk", "glob", "tsc"],
+        "gamemode": ["esbuild", "Sequelize 6 + mysql2", "Express + express-graphql", "@citizenfx/client & server"],
+        "testing": ["fivem-mock (projet interne)"]
+      },
+      "architecture": {
+        "type": "CLI + état persistant + gamemode",
+        "layers": [
+          "src/ — le CLI : commandes task, test, simulate, state, report, init",
+          ".fivem-kit/ — état JSON persistant : tasks.json, state.json (monde simulé), logs.json, progress.md auto-généré",
+          "server/resources/gamemode/ — gamemode modulaire client / server / shared / ui"
+        ]
+      },
+      "features": [
+        "Gestion de file de tâches : task current, done, next, list",
+        "Exécution de tests par ressource et par côté (client ou serveur)",
+        "Simulation d'événements de jeu : connexion joueur, sélection de menu, transaction",
+        "Inspection de l'état du monde simulé et génération de rapports d'avancement",
+        "Gamemode : système utilisateur (identifiants, bannissements, whitelist, niveaux admin, temps de jeu), gestion de personnages, API GraphQL"
+      ],
+      "integrations": ["fivem-mock", "MySQL via Sequelize", "GraphQL"],
+      "highlights": [
+        "Documentation de contexte remarquable : ce n'est pas du boilerplate mais un recueil de pièges réels du runtime FiveM (distinction source / uniqueId / id SQL, piège du source temporaire à la connexion, timing des événements de spawn)",
+        "Règles réseau strictes imposées à l'agent : deltas uniquement, diffusions ciblées, aucun polling",
+        "Boucle de développement fermée : la sandbox de test permet à l'agent de valider son propre code sans lancer le jeu"
+      ],
+      "related": ["fivem-mocks"],
+      "tags": ["cli", "agent-ia", "typescript", "graphql", "sequelize", "automatisation"],
+      "featured": true
+    },
+
+    {
+      "slug": "hoyame-ui-v2",
+      "name": "hoyame-ui-v2",
+      "tagline": "Ressource HUD FiveM avec API d'intégration Lua",
+      "category": "gaming",
+      "domain": "Jeu vidéo / interface NUI",
+      "summary": "Ressource de jeu déployée en production regroupant le HUD React et sa couche Lua : affichage de l'identité du joueur, de l'argent, de l'arme équipée, des métiers et du niveau VIP, avec une API d'exports permettant à n'importe quelle autre ressource de piloter l'interface.",
+      "period": { "start": "2025-01", "end": "2025-07", "durationMonths": 7 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Développement front-end et intégration Lua",
+      "metrics": { "luaLinesOfCode": 357, "bundleSizeKb": 384 },
+      "stack": {
+        "languages": ["Lua", "TypeScript"],
+        "frontend": ["React (bundle Webpack)"],
+        "runtime": ["FiveM (client + server)"]
+      },
+      "architecture": {
+        "type": "Ressource FiveM NUI",
+        "description": "client.lua et server.lua exposant des exports (update, updateMoney, updateJobs, updateWeapon) et une API événementielle avec fusion partielle des champs, pilotant une page React multi-routes."
+      },
+      "features": [
+        "Affichage de l'identifiant unique et temporaire du joueur",
+        "Nom du serveur, date et heure en jeu, logo",
+        "Argent liquide et bancaire, arme équipée et munitions (affichage conditionnel)",
+        "Deux métiers avec leurs grades, joueurs connectés, niveau VIP",
+        "Navigation multi-pages pilotée depuis le Lua (hud, speedometer, needs, security)",
+        "Commandes de test intégrées pour valider chaque écran sans dépendance"
+      ],
+      "highlights": [
+        "API d'intégration propre et documentée : mise à jour partielle par fusion, exports typés, exemples d'intégration fournis",
+        "Contournement documenté d'un bug de perte de focus NUI du moteur de jeu",
+        "Double documentation : README d'API et guide de navigation"
+      ],
+      "related": ["new-ui-fivem"],
+      "tags": ["lua", "fivem", "react", "hud", "api"],
+      "featured": false
+    },
+
+    {
+      "slug": "fivem-discord-bot",
+      "name": "Teazy",
+      "tagline": "Bot Discord de modération et support avec mémoire IA",
+      "category": "outil-cli",
+      "domain": "Communauté / modération",
+      "summary": "Bot Discord servant de modérateur et d'assistant support pour une communauté de joueurs : modération complète, gestion des tickets, système de rangs, et un moteur de réponse IA doté d'une mémoire de questions-réponses apprise au fil du temps.",
+      "period": { "start": "2025-07", "end": "2025-07", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "fivem-discord-bot", "private": true },
+      "metrics": { "commits": 7, "sourceFiles": 84, "linesOfCode": 8007, "slashCommands": 36, "prefixCommands": 39 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "libraries": ["discord.js 14", "OpenAI SDK 5", "dotenv"],
+        "storage": ["Fichiers JSON (config, mémoire)"]
+      },
+      "architecture": {
+        "type": "Bot mono-process à chargement dynamique",
+        "description": "Chargement automatique des commandes depuis commands/slash et commands/prefix, gestionnaires d'événements séparés, services isolés pour l'IA et la mémoire."
+      },
+      "features": [
+        "Modération : bannissement, expulsion, mute, purge, verrouillage de salon, blacklist de mots",
+        "Gestion des rôles et permissions : attribution, promotion, rétrogradation, rangs",
+        "Système de tickets support : création, listing, fermeture, suppression",
+        "Messages d'accueil personnalisables avec embeds et styles réutilisables",
+        "Statistiques d'arrivées de membres",
+        "Réponses IA contextualisées avec persona définie et règles de refus explicites",
+        "Mémoire questions-réponses : enregistrement, recherche par similarité, catégorisation automatique, reformulation IA"
+      ],
+      "integrations": ["Discord API", "OpenAI"],
+      "highlights": [
+        "Générateur de code interne produisant automatiquement les 36 commandes slash à partir des commandes préfixe — les deux surfaces restent synchronisées sans duplication manuelle",
+        "Prompt système élaboré définissant une persona, un périmètre de réponse et des exemples acceptés/refusés",
+        "Système de mémoire documenté, permettant d'enrichir les réponses sans réentraînement"
+      ],
+      "tags": ["discord", "openai", "bot", "codegen", "modération"],
+      "featured": false
+    },
+
+    {
+      "slug": "seo-manager",
+      "name": "SEO Manager",
+      "tagline": "CLI de génération automatisée de contenu SEO local par IA",
+      "category": "outil-cli",
+      "domain": "Marketing / référencement",
+      "summary": "Outil en ligne de commande qui industrialise le SEO local : import de mots-clés, planification d'un calendrier éditorial, génération de pages « service + ville » par IA avec métadonnées, données structurées et maillage interne, puis publication automatisée par daemon.",
+      "period": { "start": "2025-08", "end": "2025-08", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "seo-manger", "private": true },
+      "metrics": { "commits": 5, "sourceFiles": 15, "linesOfCode": 3037, "commandGroups": 8 },
+      "stack": {
+        "languages": ["TypeScript (ESM)"],
+        "cli": ["Commander 12", "Zod 3", "Pino", "node-cron", "csv-parse", "fs-extra"],
+        "ai": ["OpenAI (gpt-4o-mini)"],
+        "storage": ["Fichiers JSON par projet"],
+        "distribution": ["npm global + scripts install/update/uninstall"]
+      },
+      "architecture": {
+        "type": "CLI en couches",
+        "description": "Arbre de commandes Commander déléguant à des services spécialisés (générateur de contenu, générateur de métadonnées, calendrier intelligent, déduplication, outils SEO, mode projet externe), validés par des schémas Zod."
+      },
+      "features": [
+        "Gestion multi-projets : ajout, listing, validation de configuration",
+        "Import de mots-clés depuis CSV et génération de variantes",
+        "Planification d'un calendrier éditorial intelligent",
+        "Génération de contenu à l'unité, en masse ou hebdomadaire",
+        "Métadonnées complètes : title, description, H1, Open Graph, Twitter Cards",
+        "Données structurées JSON-LD Article et FAQ",
+        "Génération de sitemap XML et robots.txt",
+        "Maillage interne automatique et bloc NAP pour le SEO local",
+        "Déduplication de contenu entre pages proches",
+        "Daemon cron de publication quotidienne",
+        "Mode projet externe : analyse d'un dépôt web tiers puis injection des artefacts SEO"
+      ],
+      "integrations": ["OpenAI"],
+      "highlights": [
+        "Brique centrale d'une chaîne d'outils maison : appelée par hoycli et consommée par blog-template",
+        "Documentation d'intégration couvrant Core Web Vitals, CSP/HSTS et cohérence NAP avec Google Business",
+        "Outil auto-appliqué : le dépôt contient le rapport SEO et le sitemap qu'il a lui-même produits"
+      ],
+      "related": ["hoycli", "blog-template"],
+      "tags": ["cli", "seo", "openai", "codegen", "typescript", "automatisation"],
+      "featured": true
+    },
+
+    {
+      "slug": "hoycli",
+      "name": "hoycli",
+      "tagline": "CLI de reprise, optimisation et déploiement de sites no-code",
+      "category": "outil-cli",
+      "domain": "Outillage d'agence web",
+      "summary": "Pipeline en ligne de commande qui récupère un site publié avec un outil no-code, nettoie le HTML généré, l'optimise pour le référencement via SEO Manager, puis le versionne et le pousse vers un dépôt Git prêt à héberger. Transforme une maquette no-code en site statique maîtrisé.",
+      "period": { "start": "2025-05", "end": "2025-11", "durationMonths": 6 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "hoycli", "private": true },
+      "metrics": { "commits": 4, "linesOfCode": 1141 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "cli": ["Commander 11", "Inquirer 8", "cli-progress"],
+        "libraries": ["cheerio (parsing HTML)", "sharp (images)", "simple-git", "fs-extra"],
+        "systemDeps": ["HTTrack", "Git", "seo-manager"]
+      },
+      "architecture": {
+        "type": "CLI orchestrant des outils externes",
+        "description": "Trois commandes principales chaînant crawl, nettoyage DOM, application SEO et opérations Git, avec des métadonnées par projet stockées dans un fichier .hoycli.json."
+      },
+      "features": [
+        "create : clone du dépôt cible, aspiration du site, nettoyage du HTML, mise en place dans /public, commit et push",
+        "update : re-crawl du site, régénération des artefacts SEO, commit filtré et préparation de la pull request",
+        "sync-fork : ajout d'un remote upstream, fetch, merge et push",
+        "Suppression des commentaires et des marqueurs de l'outil no-code dans le HTML livré",
+        "Métadonnées de projet persistées : nom, URL source, URL finale, dépôt, dates"
+      ],
+      "integrations": ["HTTrack", "Git / GitHub", "seo-manager"],
+      "highlights": [
+        "Résout un problème réel d'agence : sortir un site d'un outil no-code sans repartir de zéro, tout en gagnant le contrôle du SEO et du versioning",
+        "S'intègre avec les autres outils maison plutôt que de réimplémenter leurs fonctions",
+        "Vendorisé dans le back-office Manager, qui le pilote à distance"
+      ],
+      "related": ["seo-manager", "manager"],
+      "tags": ["cli", "nodejs", "git", "scraping", "seo", "automatisation"],
+      "featured": false
+    },
+
+    {
+      "slug": "mails-manager",
+      "name": "Mails Manager",
+      "tagline": "Agent de tri, nettoyage et synthèse de boîtes mail par IA",
+      "category": "outil-cli",
+      "domain": "Productivité / automatisation",
+      "summary": "Agent qui surveille plusieurs boîtes mail en IMAP, classe et analyse les messages par IA, applique des règles de conservation ou de suppression, archive automatiquement et envoie chaque soir un rapport de synthèse. Un cache de patterns réduit fortement le coût des appels IA.",
+      "period": { "start": "2025-07", "end": "2025-07", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "mails-manager", "private": true },
+      "metrics": { "commits": 2, "sourceFiles": 9, "linesOfCode": 3346 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "libraries": ["imap", "mailparser", "nodemailer", "node-cron", "cli-progress"],
+        "ai": ["OpenAI (gpt-4o-mini)"],
+        "storage": ["Cache disque", "Configuration JSON + .env"]
+      },
+      "architecture": {
+        "type": "Orchestrateur + services spécialisés",
+        "components": ["email-manager (IMAP)", "ai-analyzer (OpenAI)", "rule-engine (whitelist / blacklist / neverTouch)", "smart-cache", "report-generator + templates"]
+      },
+      "features": [
+        "Multi-comptes activables individuellement (Gmail, Outlook, IMAP générique)",
+        "Moteur de règles avec jokers et ciblage par sujet, traité sans appel IA",
+        "Actions personnalisées : déplacement vers dossier par mots-clés, extraction de données, étiquetage",
+        "Cache intelligent par patterns d'expéditeur et similarité pour diviser le coût IA",
+        "Suppression sécurisée : corbeille récupérable, suppression définitive limitée au spam",
+        "Récupération des messages légitimes détectés dans le spam",
+        "Rapports par compte et global, trois templates (exécutif, détaillé, minimal), envoi planifié par cron",
+        "Mode premier passage pour un nettoyage historique complet",
+        "Seuils de confiance IA configurables"
+      ],
+      "integrations": ["OpenAI", "IMAP (Gmail, Outlook, Office 365)", "SMTP"],
+      "highlights": [
+        "Optimisation économique explicite : le moteur de règles et le cache court-circuitent l'IA sur la majorité des messages",
+        "Garde-fous conçus pour éviter les suppressions irréversibles",
+        "Scripts de test de connexion et de composants livrés avec l'outil"
+      ],
+      "tags": ["cli", "imap", "openai", "automatisation", "productivité"],
+      "featured": false
+    },
+
+    {
+      "slug": "ncb-scrpt",
+      "name": "NCB Sync Bot",
+      "tagline": "Bot Discord transformant les demandes de devis en CRM Excel",
+      "category": "outil-cli",
+      "domain": "CRM léger / menuiserie",
+      "summary": "Back-office minimaliste de deux sites vitrines : les formulaires web publient dans Discord, et ce bot convertit ces messages en lignes d'un classeur Excel structuré, avec déduplication, rapprochement des contacts et resynchronisation complète de l'historique.",
+      "period": { "start": "2026-02", "end": "2026-02", "durationMonths": 1 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "ncbugey-bot", "private": true },
+      "metrics": { "commits": 4, "linesOfCode": 314 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "libraries": ["discord.js 14", "ExcelJS 4", "dotenv"],
+        "storage": ["Classeur Excel (.xlsx)"]
+      },
+      "architecture": {
+        "type": "Bot fichier unique multi-fournisseurs",
+        "description": "Notion de PROVIDERS associant chaque marque à ses salons Discord de devis et de contacts, permettant d'alimenter un classeur commun depuis plusieurs sites."
+      },
+      "features": [
+        "Création automatique du classeur avec en-têtes stylés, colonne ID masquée et largeurs calibrées",
+        "Onze colonnes métier : date, provider, client, email, téléphone, catégorie, dimensions, description, statut, notes",
+        "Validation de données Excel sur le statut (liste fermée de 8 valeurs de suivi commercial)",
+        "Analyse des embeds Discord avec extraction par expression régulière",
+        "Déduplication par identifiant de message",
+        "Complétion du téléphone d'une ligne existante par rapprochement sur l'email",
+        "Ajout des contacts sans devis associé",
+        "Resynchronisation complète d'un salon par pagination de l'historique"
+      ],
+      "integrations": ["Discord API", "Excel"],
+      "highlights": [
+        "Choix pragmatique assumé : Excel comme base de données pour un client qui travaille déjà avec, plutôt qu'un CRM à déployer et à faire adopter",
+        "Le fichier livré est directement exploitable par le commercial : listes déroulantes de statut intégrées au classeur",
+        "Idempotent : la resynchronisation complète ne crée pas de doublons"
+      ],
+      "related": ["nc-bugey-app", "globalouvertures-app"],
+      "tags": ["discord", "excel", "crm", "nodejs", "automatisation"],
+      "featured": false
+    },
+
+    {
+      "slug": "nc-bugey-app",
+      "name": "NC Bugey — Devis",
+      "tagline": "Tunnel de demande de devis pour un menuisier",
+      "category": "site-web",
+      "domain": "Menuiserie / génération de leads",
+      "summary": "Mini-site de demande de devis en deux étapes pour un poseur de fenêtres et portes, avec validation stricte des coordonnées françaises, consentement RGPD et transmission des leads en temps réel vers Discord, où un bot les convertit en CRM.",
+      "period": { "start": "2025-09", "end": "2026-02", "durationMonths": 5 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Développement front-end et intégration",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "nc-bugey-app", "private": true },
+      "metrics": { "commits": 21, "sourceFiles": 14, "linesOfCode": 921 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 16 (App Router, Turbopack)", "React 19", "Tailwind CSS 4"],
+        "infra": ["Netlify"]
+      },
+      "architecture": {
+        "type": "Next.js App Router sans base de données",
+        "description": "Tunnel en deux étapes passant les données par query params, sans persistance : les leads partent directement en embeds vers deux webhooks Discord distincts."
+      },
+      "features": [
+        "Parcours en deux temps : identification du client puis détail de la demande",
+        "Validation locale de l'email et du numéro de téléphone français (fixe et mobile, formats +33 et 0033)",
+        "Distinction particulier / entreprise",
+        "Case de consentement obligatoire liée aux pages légales",
+        "Envoi des leads en embeds Discord formatés",
+        "Bannière cookies et pages légales RGPD complètes"
+      ],
+      "integrations": ["Webhooks Discord", "Netlify"],
+      "highlights": [
+        "Architecture volontairement sans base de données : le coût d'exploitation est nul et le client reçoit ses leads là où il est déjà",
+        "Travail d'accessibilité sur les composants de formulaire (derniers commits sur la checkbox de consentement)"
+      ],
+      "related": ["ncb-scrpt", "globalouvertures-app"],
+      "tags": ["nextjs", "leads", "discord", "rgpd", "netlify"],
+      "featured": false
+    },
+
+    {
+      "slug": "globalouvertures-app",
+      "name": "Global Ouvertures — Devis",
+      "tagline": "Déclinaison du tunnel de devis pour un second client menuisier",
+      "category": "site-web",
+      "domain": "Menuiserie / génération de leads",
+      "summary": "Second site de demande de devis, reprenant le parcours et la logique de NC Bugey avec une identité visuelle, des contenus légaux et des webhooks propres. Illustre la réutilisation d'un produit validé sur un nouveau client.",
+      "period": { "start": "2026-02", "end": "2026-02", "durationMonths": 1 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Adaptation et déploiement",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "globalouvertures-app", "private": true },
+      "metrics": { "commits": 2, "sourceFiles": 14, "linesOfCode": 915 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 16", "React 19", "Tailwind CSS 4"],
+        "infra": ["Netlify"]
+      },
+      "features": [
+        "Même tunnel de devis en deux étapes que NC Bugey",
+        "Identité visuelle, favicon, en-tête et pied de page dédiés",
+        "Mentions légales et politique de confidentialité propres au client",
+        "Webhooks Discord distincts, alimentant le même bot de synchronisation CRM"
+      ],
+      "integrations": ["Webhooks Discord", "Netlify"],
+      "highlights": [
+        "Mise en production d'un second client en deux commits grâce à un produit déjà éprouvé",
+        "Les deux sites alimentent un CRM Excel commun via le mécanisme multi-fournisseurs du bot"
+      ],
+      "related": ["nc-bugey-app", "ncb-scrpt"],
+      "tags": ["nextjs", "leads", "discord", "netlify"],
+      "featured": false
+    },
+
+    {
+      "slug": "sftrm",
+      "name": "SFTRM",
+      "tagline": "Site vitrine et acquisition pour un transporteur express",
+      "category": "site-web",
+      "domain": "Transport express",
+      "summary": "Site public d'un transporteur léger express longue distance, ciblant à la fois les chargeurs (demande de devis multi-formats) et les chauffeurs indépendants (recrutement). Les soumissions sont stockées en base et consultées depuis le back-office Manager.",
+      "period": { "start": "2026-02", "end": "2026-02", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception, développement et intégration",
+      "repository": { "host": "github", "owner": "hoxtio-env", "name": "sftrm", "private": true },
+      "metrics": { "commits": 2, "sourceFiles": 16, "linesOfCode": 1135 },
+      "stack": {
+        "languages": ["TypeScript", "SQL", "CSS"],
+        "frontend": ["Next.js 16 (App Router)", "React 19", "CSS écrit à la main"],
+        "database": ["Supabase (PostgreSQL, RLS)"],
+        "backend": ["Route Handlers Next.js"]
+      },
+      "architecture": {
+        "type": "Next.js App Router avec deux route handlers",
+        "description": "Landing one-page en composants, deux endpoints POST insérant en base sous RLS restrictive : l'insertion anonyme est autorisée, la lecture est réservée au service role — donc au back-office."
+      },
+      "features": [
+        "Landing animée : hero SVG, anneaux, grille, effet de bruit, compteurs de statistiques",
+        "Formulaire de devis multi-types avec champs conditionnels : trajet spécifique, collaboration long terme, mise à disposition de chauffeur",
+        "Formulaire de recrutement chauffeur indépendant (permis, véhicule, disponibilité, expérience)",
+        "Animations au scroll et loader d'entrée",
+        "Consultation des soumissions déportée dans le back-office Manager"
+      ],
+      "integrations": ["Supabase"],
+      "dataModel": {
+        "tables": [
+          { "name": "devis_requests", "note": "type (trajet|collaboration|chauffeur) + champs conditionnels : villes, dates, marchandise, fréquence, volume, durée" },
+          { "name": "candidatures", "note": "identité, ville, permis (B|B+|C), véhicule, disponibilité, expérience" }
+        ],
+        "notes": "RLS avec une unique policy d'insertion anonyme, aucune policy de lecture."
+      },
+      "highlights": [
+        "Modèle de sécurité minimal et correct : le site peut écrire mais jamais lire les données qu'il collecte",
+        "Formulaire à géométrie variable selon le type de demande, sans multiplier les parcours",
+        "Schéma de données documenté en markdown à côté du SQL"
+      ],
+      "related": ["manager"],
+      "tags": ["nextjs", "supabase", "rls", "transport", "landing"],
+      "featured": false
+    },
+
+    {
+      "slug": "blog-template",
+      "name": "Blog Template",
+      "tagline": "Moteur de blog white-label piloté par configuration JSON",
+      "category": "site-web",
+      "domain": "Publication / SEO",
+      "summary": "Socle de blog Next.js entièrement paramétrable par un fichier JSON — identité, couleurs, polices, logo, langue — conçu pour rendre les pages produites par SEO Manager. Déployé en instance pour le blog de l'agence.",
+      "period": { "start": "2025-08", "end": "2025-08", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "derive-template",
+      "basedOn": { "name": "Vercel blog-starter", "type": "Starter officiel", "note": "Le système de configuration JSON, le rendu des pages générées, le sitemap et robots dynamiques ainsi que l'intégration SEO Manager sont des ajouts originaux." },
+      "confidence": "haute",
+      "role": "Adaptation, développement des extensions et déploiement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "blog-template", "private": true },
+      "metrics": { "commits": 11, "sourceFiles": 34, "linesOfCode": 1269, "generatedPages": 12 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 15 (App Router)", "React 19 RC", "Tailwind CSS 3"],
+        "content": ["gray-matter", "remark / remark-html", "Fichiers JSON générés"],
+        "output": "Export statique"
+      },
+      "features": [
+        "White-labeling complet par config.json : titre, description, URL, logo SVG inline, couleurs, polices Google, langue, redirection",
+        "Thème clair et sombre",
+        "Route catch-all rendant les pages générées par SEO Manager",
+        "Sitemap et robots.txt générés dynamiquement",
+        "Commande de génération appelant directement SEO Manager en masse",
+        "Composants de blog : hero, prévisualisations, corps d'article, image de couverture, formatage de dates"
+      ],
+      "integrations": ["seo-manager"],
+      "highlights": [
+        "Dernier maillon de la chaîne SEO maison : hoycli récupère, SEO Manager génère, ce moteur publie",
+        "Instance déployée avec 12 pages de SEO local programmatique (service + ville)"
+      ],
+      "related": ["seo-manager", "hoycli"],
+      "tags": ["nextjs", "seo", "white-label", "static-export"],
+      "featured": false
+    },
+
+    {
+      "slug": "trader-webtool-helper",
+      "name": "Trader Webtool Helper",
+      "tagline": "Garde-fou de validation de confluences avant prise de position",
+      "category": "app-metier",
+      "domain": "Finance / analyse technique",
+      "summary": "Outil d'aide à la décision pour trader discrétionnaire : l'utilisateur coche les confluences observées sur son graphique, et à partir de trois indicateurs l'application impose une phase de revalidation une par une avant de rendre son verdict. Conçu comme un garde-fou contre les prises de position impulsives.",
+      "period": { "start": "2025-08", "end": "2025-09", "durationMonths": 2 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "trader-webtool-helper", "private": true },
+      "metrics": { "commits": 9, "sourceFiles": 19, "linesOfCode": 1208 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 15 (App Router, Turbopack)", "React 19", "Tailwind CSS 4", "shadcn/ui", "Framer Motion"],
+        "state": ["Redux Toolkit", "redux-persist (localStorage)"],
+        "forms": ["React Hook Form", "Zod"]
+      },
+      "architecture": {
+        "type": "Application client uniquement",
+        "description": "Machine à états en trois phases — sélection, revalidation indicateur par indicateur, verdict — avec état persisté localement, sans backend ni compte utilisateur."
+      },
+      "features": [
+        "Catalogue d'indicateurs métier : suivi de flux multi-unités de temps, cassure et réintégration de l'OPR, bulle d'apesanteur, zones de polarité M15 à W, retracements de Fibonacci, divergences RSI",
+        "Ajout d'indicateurs personnalisés",
+        "Seuil minimum de trois confluences avant validation",
+        "Phase de revalidation forcée, un indicateur à la fois",
+        "Réinitialisation automatique de la validation si la sélection change",
+        "Persistance locale de la configuration entre les sessions"
+      ],
+      "highlights": [
+        "La contrainte est le produit : l'outil ralentit délibérément l'utilisateur au lieu de l'assister",
+        "Aucune donnée envoyée : tout reste dans le navigateur"
+      ],
+      "tags": ["nextjs", "redux", "trading", "shadcn", "client-only"],
+      "featured": false
+    },
+
+    {
+      "slug": "ingrprinter",
+      "name": "Hoyame Print Tool",
+      "tagline": "Générateur de planches d'étiquettes d'ingrédients",
+      "category": "app-metier",
+      "domain": "Restauration / hygiène alimentaire",
+      "summary": "Outil web à usage unique pour une cuisine professionnelle : on saisit le nom d'un ingrédient et l'outil génère un PDF A4 de 105 étiquettes prédécoupées avec emplacement de date, destiné à la traçabilité HACCP. Interface en italien.",
+      "period": { "start": "2025-11", "end": "2025-11", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "ingr-tool", "private": true },
+      "metrics": { "commits": 3, "sourceFiles": 4, "linesOfCode": 124 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Vite 7", "React 19", "CSS écrit à la main"],
+        "documents": ["jsPDF 3"],
+        "infra": ["Netlify", "Yarn Berry"]
+      },
+      "features": [
+        "Génération d'une planche A4 portrait de 5 colonnes × 21 lignes, soit 105 étiquettes",
+        "Cadres tracés pour le découpage",
+        "Réduction automatique de la taille de police par mesure de largeur de texte, jusqu'à 4 pt, pour que tout nom tienne dans la cellule",
+        "Emplacement de date pré-imprimé sous chaque nom",
+        "Nom de fichier assaini automatiquement"
+      ],
+      "highlights": [
+        "Périmètre minimal assumé : 124 lignes pour résoudre entièrement un besoin terrain",
+        "Ajustement typographique par mesure réelle plutôt que par estimation"
+      ],
+      "tags": ["react", "jspdf", "haccp", "outil-métier"],
+      "featured": false
+    },
+
+    {
+      "slug": "website-assets-generator",
+      "name": "Website Assets Generator",
+      "tagline": "CLI de génération des assets web à partir d'un logo",
+      "category": "outil-cli",
+      "domain": "Outillage d'agence web",
+      "summary": "Outil en ligne de commande produisant, à partir d'un simple logo PNG ou SVG, l'ensemble des favicons, icônes PWA, manifestes et balises meta nécessaires au lancement d'un site — une tâche répétitive de chaque mise en production, réduite à une commande.",
+      "period": { "start": "2025-08", "end": "2025-08", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "website-assets-generator", "private": false },
+      "license": "MIT",
+      "metrics": { "commits": 4, "linesOfCode": 203, "generatedFiles": 12 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "libraries": ["sharp 0.33", "png-to-ico"],
+        "runtime": ["Node.js ≥ 18"]
+      },
+      "features": [
+        "Entrée PNG ou SVG (rasterisation incluse)",
+        "favicon.ico multi-résolutions (16, 32, 48) plus favicons PNG 16 et 32",
+        "apple-touch-icon 180, android-chrome 192 et 512, mstile 150",
+        "manifest.json, site.webmanifest, browserconfig.xml, safari-pinned-tab.svg",
+        "Fichier meta-tags.html prêt à coller dans le head",
+        "Options de personnalisation : nom, nom court, couleur de thème, couleur de fond"
+      ],
+      "highlights": [
+        "Publié sous licence MIT avec métadonnées npm complètes",
+        "Couvre l'intégralité des formats attendus par iOS, Android et Windows en une commande"
+      ],
+      "tags": ["cli", "sharp", "pwa", "favicon", "open-source"],
+      "featured": false
+    },
+
+    {
+      "slug": "fast-convertissor",
+      "name": "Fast Convertisseur",
+      "tagline": "Conversion récursive d'images vers WebP sans dépendance",
+      "category": "outil-cli",
+      "domain": "Optimisation d'assets",
+      "summary": "Utilitaire en ligne de commande convertissant récursivement un dossier d'images vers WebP, avec sélection automatique du meilleur encodeur disponible sur la machine. Écrit sans aucune dépendance npm.",
+      "period": { "start": "2026-01", "end": "2026-01", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "fast-convertissor", "private": true },
+      "metrics": { "commits": 3, "sourceFiles": 1, "linesOfCode": 155, "dependencies": 0 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "systemDeps": ["cwebp", "ffmpeg", "sips (macOS)"],
+        "tooling": ["Yarn Berry avec Plug'n'Play"]
+      },
+      "features": [
+        "Parcours récursif itératif avec exclusion du dossier de sortie",
+        "Support de 11 formats d'entrée : png, jpg, jpeg, webp, tif, bmp, gif, heic, heif, avif, jfif",
+        "Détection automatique de l'encodeur disponible et bascule en cascade",
+        "Dossier de sortie configurable"
+      ],
+      "highlights": [
+        "Zéro dépendance npm : le script s'appuie uniquement sur les binaires système",
+        "Parcours par pile plutôt que par récursion, pour tenir sur de très grandes arborescences"
+      ],
+      "tags": ["cli", "webp", "images", "zero-dependency"],
+      "featured": false
+    },
+
+    {
+      "slug": "portfolio",
+      "name": "Portfolio personnel",
+      "tagline": "Portfolio et blog technique avec CV piloté par les données",
+      "category": "site-web",
+      "domain": "Présentation personnelle",
+      "summary": "Site personnel présentant parcours, compétences, expériences et projets, avec un blog en MDX et coloration syntaxique. L'ensemble du contenu est centralisé dans un unique fichier de données, ce qui a permis d'en décliner une version cliente en quelques heures.",
+      "period": { "start": "2024-09", "end": "2025-02", "durationMonths": 6 },
+      "status": "livre",
+      "originality": "derive-template",
+      "basedOn": { "name": "dillionverma/portfolio", "type": "Template open-source", "note": "Personnalisation du contenu, traduction française, ajout des sections compétences transverses et langues." },
+      "confidence": "haute",
+      "role": "Adaptation, contenu et déploiement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "portfolio", "private": false },
+      "metrics": { "commits": 12, "sourceFiles": 26, "linesOfCode": 2726 },
+      "stack": {
+        "languages": ["TypeScript", "MDX"],
+        "frontend": ["Next.js 14 (App Router)", "React 18", "Tailwind CSS 3", "shadcn/ui", "magicui", "Framer Motion", "next-themes"],
+        "content": ["MDX", "unified / remark / rehype", "rehype-pretty-code", "Shiki"]
+      },
+      "features": [
+        "Fichier de données unique comme source de vérité : identité, résumé, compétences, langues, expériences, formations, projets",
+        "Blog MDX avec coloration syntaxique Shiki",
+        "Thème clair et sombre",
+        "Dock animé et transitions de flou à l'apparition"
+      ],
+      "highlights": [
+        "Architecture pilotée par les données : changer de personne revient à changer un fichier",
+        "Déclinaison client livrée à partir de cette même base"
+      ],
+      "related": ["ryan-ouzen-portfolio"],
+      "tags": ["nextjs", "mdx", "portfolio", "shadcn"],
+      "featured": false
+    },
+
+    {
+      "slug": "ryan-ouzen-portfolio",
+      "name": "Portfolio Ryan Ouzen",
+      "tagline": "Portfolio client dans le secteur de l'électricité industrielle",
+      "category": "site-web",
+      "domain": "Présentation personnelle / prestation client",
+      "summary": "Portfolio livré pour un technicien bureau d'études en électricité industrielle, décliné à partir du socle personnel : contenu métier spécifique (schémas électriques, essais FAT, armoires, bilans de puissance) et navigation simplifiée.",
+      "period": { "start": "2026-02", "end": "2026-02", "durationMonths": 1 },
+      "status": "livre",
+      "originality": "derive-template",
+      "basedOn": { "name": "portfolio (projet interne)", "type": "Socle réutilisé", "note": "Décliné du portfolio personnel, lui-même dérivé de dillionverma/portfolio." },
+      "confidence": "haute",
+      "role": "Adaptation, intégration du contenu et livraison",
+      "repository": { "host": "github", "owner": "hoyame", "name": "ryan-ouzen-portfolio", "private": true },
+      "metrics": { "commits": 3, "sourceFiles": 26, "linesOfCode": 2581 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 14", "React 18", "Tailwind CSS 3", "shadcn/ui", "magicui"]
+      },
+      "features": [
+        "Contenu entièrement retravaillé pour le métier d'essais et bureau d'études",
+        "Blog retiré de la navigation, parcours simplifié",
+        "Livraison client à partir d'un socle éprouvé"
+      ],
+      "highlights": [
+        "Démonstration de la valeur d'une architecture pilotée par les données : livraison en 3 commits"
+      ],
+      "related": ["portfolio"],
+      "tags": ["nextjs", "portfolio", "client"],
+      "featured": false
+    },
+
+    {
+      "slug": "hoxtio-promo-video",
+      "name": "Hoxtio Promo",
+      "tagline": "Vidéo promotionnelle générée par code et sous-titrage automatique",
+      "category": "creatif",
+      "domain": "Motion design / marketing",
+      "summary": "Deux usages dans un même projet Remotion : une vidéo promotionnelle de 20 secondes pour l'agence, entièrement écrite en React avec une timeline scénarisée, et une chaîne de sous-titrage automatique de vidéos par transcription locale.",
+      "period": { "start": "2026-02", "end": "2026-02", "durationMonths": 1 },
+      "status": "dev-actif",
+      "originality": "derive-template",
+      "basedOn": { "name": "Remotion — TikTok-style captions", "type": "Template officiel", "note": "La composition HoxtioPromo est un ajout entièrement original." },
+      "confidence": "haute",
+      "role": "Conception et réalisation",
+      "metrics": { "sourceFiles": 16, "linesOfCode": 1119, "durationSeconds": 20, "frames": 600 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "video": ["Remotion 4", "@remotion/captions", "@remotion/media-utils"],
+        "frontend": ["React 19", "Tailwind CSS 4"],
+        "ai": ["whisper.cpp (transcription locale)"]
+      },
+      "features": [
+        "Composition promotionnelle de 600 frames à 30 fps avec timeline scénarisée en 5 séquences",
+        "Séquences : révélation du logo, accroche, présentation de 6 services, proposition de valeur, appel à l'action",
+        "Palette et direction artistique codées en constantes partagées",
+        "Sous-titrage automatique de style vertical : transcription locale par whisper.cpp puis rendu animé",
+        "CLI de captioning traitant un fichier, un dossier ou l'ensemble des médias"
+      ],
+      "integrations": ["whisper.cpp"],
+      "highlights": [
+        "Vidéo entièrement versionnable et modifiable par le code — aucun logiciel de montage",
+        "Transcription exécutée localement, sans service tiers ni envoi de données"
+      ],
+      "tags": ["remotion", "motion-design", "whisper", "react", "vidéo"],
+      "featured": false
+    },
+
+    {
+      "slug": "veritpaye",
+      "name": "VeritPaye",
+      "tagline": "Vérification de fiche de paie pour salariés en travail posté",
+      "category": "mobile",
+      "domain": "Droit du travail / rémunération",
+      "summary": "Application mobile permettant à un salarié en 3×8 de recalculer son salaire brut théorique à partir de ses horaires réels (matin, après-midi, nuit) et de le confronter à ce que son employeur a versé. Modélise une convention collective précise : pauses, heures supplémentaires, jours fériés.",
+      "period": { "start": "2024-06", "end": "2024-06", "durationMonths": 1 },
+      "status": "archive",
+      "originality": "genere-lowcode",
+      "basedOn": { "name": "FlutterFlow", "type": "Générateur low-code", "note": "La logique de calcul du salaire brut est une custom action écrite à la main." },
+      "confidence": "haute",
+      "role": "Conception produit et développement de la logique métier",
+      "repository": { "host": "github", "owner": "hoyame", "name": "veritpaye", "private": true },
+      "metrics": { "commits": 9, "sourceFiles": 34, "linesOfCode": 10043 },
+      "stack": {
+        "languages": ["Dart"],
+        "mobile": ["Flutter", "FlutterFlow"],
+        "navigation": ["go_router 12"],
+        "state": ["provider 6"],
+        "storage": ["shared_preferences", "sqflite", "flutter_secure_storage"],
+        "platforms": ["Android", "iOS", "Web"]
+      },
+      "features": [
+        "Saisie des horaires par type de poste : matin, après-midi, nuit",
+        "Recalcul du salaire brut théorique et comparaison avec le versé",
+        "Gestion de plusieurs sociétés avec paramètres et conventions distincts",
+        "Calcul du temps de pause, des heures supplémentaires et des heures de jours fériés",
+        "Modèle freemium préparé"
+      ],
+      "highlights": [
+        "Modélisation fine d'une convention collective en travail posté : bases en minutes par type de poste, conversion en heures décimales, pauses journalières",
+        "Le plus ancien projet du portefeuille — première approche du développement mobile"
+      ],
+      "tags": ["flutter", "mobile", "paie", "flutterflow"],
+      "featured": false
+    },
+
+    {
+      "slug": "upifer",
+      "name": "Upifer",
+      "tagline": "Socle SaaS mobile-first réutilisable",
+      "category": "saas",
+      "domain": "Socle technique",
+      "summary": "Amorce de plateforme SaaS posant le socle commun réutilisé sur plusieurs projets : monorepo, authentification Supabase, PWA et packaging mobile Capacitor prêts à l'emploi, avant tout développement métier.",
+      "period": { "start": "2025-12", "end": "2025-12", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "moyenne",
+      "role": "Conception du socle",
+      "repository": { "host": "github", "owner": "hoyame", "name": "upifer", "private": true },
+      "metrics": { "commits": 1, "sourceFiles": 21, "linesOfCode": 1159 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 16", "React 19", "Tailwind CSS 4", "shadcn/ui"],
+        "auth": ["Supabase Auth"],
+        "mobile": ["Capacitor 6"],
+        "infra": ["PWA"]
+      },
+      "features": [
+        "Monorepo npm workspaces prêt à accueillir plusieurs applications",
+        "Pages de connexion et d'inscription branchées sur Supabase avec persistance de session",
+        "Client Supabase en singleton paresseux avec erreur explicite si la configuration manque",
+        "PWA et packaging iOS/Android préconfigurés"
+      ],
+      "highlights": [
+        "Socle effectivement réutilisé : le portail commerciaux et le dashboard du back-office partagent cette base"
+      ],
+      "related": ["hoxtio-commercials", "manager"],
+      "tags": ["nextjs", "supabase", "capacitor", "boilerplate"],
+      "featured": false
+    },
+
+    {
+      "slug": "color-pages-booking",
+      "name": "Color Pages Booking",
+      "tagline": "Socle de prise de rendez-vous entièrement thémable",
+      "category": "app-metier",
+      "domain": "Prise de rendez-vous",
+      "summary": "Squelette réutilisable de système de réservation où non seulement les couleurs et le logo, mais aussi l'intégralité des textes de l'interface sont centralisés dans un objet de configuration unique — permettant de décliner un même produit par client sans toucher au code.",
+      "period": { "start": "2025-06", "end": "2025-06", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "metrics": { "sourceFiles": 13, "linesOfCode": 1242 },
+      "stack": {
+        "languages": ["TypeScript"],
+        "frontend": ["Next.js 15 (App Router, Turbopack)", "React 19", "Tailwind CSS 4", "Headless UI"],
+        "database": ["Supabase (PostgreSQL)"],
+        "auth": ["Supabase Auth"]
+      },
+      "features": [
+        "Authentification et garde de route",
+        "Espace administrateur : création et gestion des créneaux, consultation des rendez-vous",
+        "Espace utilisateur : réservation et suivi de ses rendez-vous",
+        "Interface ThemeConfig centralisant couleurs, branding et l'ensemble des libellés"
+      ],
+      "highlights": [
+        "Théming poussé jusqu'aux textes : décliner le produit pour un nouveau client ne demande qu'un objet de configuration"
+      ],
+      "tags": ["nextjs", "supabase", "white-label", "réservation"],
+      "featured": false
+    },
+
+    {
+      "slug": "claudet",
+      "name": "Studio Landing",
+      "tagline": "Maquette de landing page pour studio créatif",
+      "category": "creatif",
+      "domain": "Design / expérimentation",
+      "summary": "Exploration de direction artistique sous forme de landing page pour un studio créatif : titre éclaté, overlay de bruit, animations d'apparition et formulaire de capture d'email, réalisée sans aucune librairie d'interface.",
+      "period": { "start": "2026-01", "end": "2026-01", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "moyenne",
+      "role": "Design et développement",
+      "metrics": { "sourceFiles": 3, "linesOfCode": 216 },
+      "stack": {
+        "languages": ["JavaScript (JSX)"],
+        "frontend": ["Vite 6", "React 18", "CSS écrit à la main"],
+        "dependencies": "Aucune librairie UI"
+      },
+      "features": [
+        "Hero avec titre éclaté et éléments décoratifs",
+        "Overlay de bruit et animations d'entrée en CSS pur",
+        "Indicateur de scroll, sections travaux / à propos / contact",
+        "Formulaire de capture d'email avec états de focus et de soumission"
+      ],
+      "highlights": [
+        "Tout l'effet visuel repose sur du CSS écrit à la main, sans framework d'animation"
+      ],
+      "tags": ["react", "vite", "css", "landing", "design"],
+      "featured": false
+    }
+  ],
+
+  "ecosystem": {
+    "description": "Les projets ne sont pas isolés : ils forment plusieurs chaînes cohérentes où les outils s'appellent réellement entre eux.",
+    "chains": [
+      {
+        "name": "Chaîne SEO et mise en ligne",
+        "flow": ["hoycli", "seo-manager", "blog-template", "website-assets-generator", "fast-convertissor"],
+        "description": "Récupération d'un site no-code, génération du contenu et des données structurées, publication, puis génération des assets et optimisation des images."
+      },
+      {
+        "name": "Chaîne acquisition menuiserie",
+        "flow": ["nc-bugey-app", "globalouvertures-app", "ncb-scrpt"],
+        "description": "Deux sites de génération de leads alimentent via Discord un même bot qui construit un CRM Excel multi-fournisseurs."
+      },
+      {
+        "name": "Chaîne outillage de jeu",
+        "flow": ["fivem-mocks", "fivem-autonomous", "new-ui-fivem", "hoyame-ui-v2"],
+        "description": "Une librairie de mocks générée rend le code testable hors du jeu, ce qui permet à un CLI de piloter un agent IA en boucle fermée ; l'interface React est déployée comme ressource de jeu."
+      },
+      {
+        "name": "Hub d'entreprise",
+        "flow": ["manager", "sftrm", "hoxtio-commercials", "hoycli"],
+        "description": "Le back-office consomme les données du site transporteur, supervise le portail commerciaux et pilote le CLI de déploiement."
+      },
+      {
+        "name": "Itérations produit",
+        "flow": ["komertys → hoxtio-commercials", "tavifleets-app → tavifleets"],
+        "description": "Deux produits repensés et réécrits après une première version en production, avec changement d'architecture assumé."
+      }
+    ],
+    "technicalProfile": {
+      "primaryLanguages": ["TypeScript", "JavaScript", "Lua", "Dart", "SQL", "Python"],
+      "frameworks": ["Next.js 14–16", "React 18/19", "React Native / Expo", "Vite", "Express", "Fastify", "Flutter", "Remotion"],
+      "databases": ["PostgreSQL via Supabase", "MySQL", "AsyncStorage", "Fichiers JSON"],
+      "recurringPatterns": [
+        "Supabase comme socle base de données, authentification, stockage et temps réel",
+        "Stripe pour tous les flux de paiement, avec vérification serveur des autorisations",
+        "Génération de code plutôt qu'écriture manuelle (mocks natives, commandes slash, contenu SEO, assets web)",
+        "Documentation de contexte technique dense consignant les pièges résolus",
+        "Architecture pilotée par la configuration pour décliner un produit par client",
+        "Adoption rapide des versions récentes des frameworks (Next 16, React 19, Tailwind 4, Expo 56)"
+      ],
+      "domainsCovered": [
+        "Transport et logistique",
+        "Restauration",
+        "Beauté et prise de rendez-vous",
+        "Force de vente et commissionnement",
+        "Menuiserie et génération de leads",
+        "Jeu vidéo et interfaces embarquées",
+        "Streaming et broadcast",
+        "Marketing et référencement",
+        "Finance et analyse technique",
+        "Droit du travail"
+      ]
+    }
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "$schema": "https://hoyame.com/schemas/portfolio-projects.v1.json",
+  "meta": {
+    "version": "1.1.0",
+    "generatedAt": "2026-08-10",
+    "type": "increment",
+    "extends": "portfolio-projects.json",
+    "note": "Complément au fichier principal. Ces projets sont à ajouter au tableau projects[] existant. Même schéma, mêmes conventions de champs.",
+    "author": {
+      "name": "Hoyame Zouhari",
+      "email": "contact@hmagreater.com",
+      "github": "hoyame",
+      "organizations": ["HMA-Greater", "hoxtio", "hoxtio-env", "hoxtiogrp", "Zone-819"]
+    },
+    "stats": {
+      "newProjectCount": 7,
+      "featuredCount": 4,
+      "yearsAdded": "2020 – 2026"
+    },
+    "supersedes": [
+      {
+        "existingSlug": "fivem-discord-bot",
+        "replacedBy": "teazy",
+        "action": "remplacer",
+        "reason": "teazy est la continuation du même bot sur un nouveau dépôt : les 7 commits d'origine y sont identiques, plus 6 commits et 1 428 lignes ajoutées (panel web, allowlist multi-serveurs, refonte du ticketing). Conserver les deux entrées ferait doublon."
+      }
+    ],
+    "excluded": [
+      {
+        "name": "website-teazr",
+        "reason": "Doublon bit-à-bit de website (même dépôt Zone-819/website, même HEAD, zéro différence au diff)"
+      },
+      {
+        "name": "fivem-launcher",
+        "reason": "Fork d'electron-react-boilerplate v1.1.0 laissé à l'état de maquette : bannières et logos du template encore présents, appId org.develar inchangé, aucune logique fonctionnelle (pas de lancement de jeu, pas de téléchargement réel, discord-rpc déclaré mais jamais importé). Apport propre estimé à ~700 lignes de TSX et ~1 100 de SCSS d'intégration UI.",
+        "reconsiderIf": "Vous souhaitez montrer du travail Electron / desktop malgré l'état inachevé — dites-le moi et je rédige l'entrée."
+      }
+    ]
+  },
+
+  "projects": [
+    {
+      "slug": "myheroes",
+      "name": "MyHeroes",
+      "tagline": "Application mobile d'alerte de proximité et de secours citoyen",
+      "category": "mobile",
+      "domain": "Sécurité civile / premiers secours",
+      "summary": "Application publiée sur l'App Store permettant à une personne en détresse de déclencher une alerte géolocalisée avec niveau de gravité, description et photo. Les utilisateurs à proximité sont notifiés par push et peuvent accepter l'alerte pour porter secours. Complétée par un volet pédagogique de gestes de premiers secours en six langues et un annuaire des numéros d'urgence par pays.",
+      "period": { "start": "2020-07", "end": "2021-06", "durationMonths": 12 },
+      "status": "archive",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception produit, développement mobile, API, publication sur les stores",
+      "client": "Projet client",
+      "links": [
+        { "label": "App Store", "url": "https://apps.apple.com/fr/app/myheroes/id1544800641" }
+      ],
+      "repository": { "host": "github", "owner": "hoyame", "name": "myheroes", "private": false },
+      "metrics": {
+        "commits": 1314,
+        "sourceFiles": 98,
+        "linesOfCode": 15750,
+        "subProjects": 4,
+        "languagesSupported": 6,
+        "repoSizeMb": 141
+      },
+      "stack": {
+        "languages": ["TypeScript", "JavaScript", "SQL"],
+        "mobile": ["React Native 0.63 (app utilisateur)", "React Native 0.64 (app admin)", "React 16/17"],
+        "state": ["Redux 4", "react-redux 7", "redux-persist 6"],
+        "backend": ["Node.js", "Express 4.17", "Socket.IO 3"],
+        "database": ["MySQL (driver natif, requêtes paramétrées)"],
+        "auth": ["JWT (jsonwebtoken)", "bcryptjs", "Yup en middlewares de validation"],
+        "maps": ["react-native-maps", "Google Maps SDK", "Google Geocoding API"],
+        "push": ["Firebase Cloud Messaging", "Firebase Analytics", "react-native-push-notification"],
+        "i18n": ["i18n-js", "react-native-localize"],
+        "platforms": ["iOS", "Android"]
+      },
+      "architecture": {
+        "type": "Quatre applications distinctes",
+        "description": "Une app mobile grand public, une app mobile de modération, une API REST doublée d'un canal temps réel Socket.IO, et un micro-service dédié au stockage des images.",
+        "components": [
+          { "name": "MyHeroApp", "role": "App utilisateur iOS et Android", "linesOfCode": 13563, "files": 77 },
+          { "name": "MyHeroAdminApp", "role": "App mobile de modération des alertes et actualités", "linesOfCode": 522, "files": 8 },
+          { "name": "MyHeroApi", "role": "API REST + Socket.IO + notifications push", "linesOfCode": 1354, "files": 12 },
+          { "name": "MyHeroCDN", "role": "Micro-service de stockage des avatars et photos d'alerte", "linesOfCode": 76, "files": 1 }
+        ]
+      },
+      "features": [
+        "Création d'alerte géolocalisée avec niveau de gravité, description et photo",
+        "Notification push ciblée par département via des topics Firebase",
+        "Carte des alertes en cours avec géocodage inverse (ville et département)",
+        "Acceptation d'alerte côté sauveteur, suivi temps réel du nombre de personnes mobilisées",
+        "Système d'expérience, de classement et d'avis entre utilisateurs",
+        "Neuf fiches illustrées de gestes de premiers secours : PLS, hémorragie, brûlures, étouffement adulte et nourrisson, malaises, traumatismes, ventilation artificielle",
+        "Annuaire des numéros d'urgence par pays (SAMU, police, pompiers, 112, 114)",
+        "Interface traduite en six langues avec détection de la langue système",
+        "Inscription, connexion, réinitialisation de mot de passe par email et gestion d'avatar",
+        "Application de modération séparée pour valider ou rejeter alertes et actualités"
+      ],
+      "integrations": ["Firebase (Cloud Messaging, Analytics, Instance ID)", "Google Maps SDK", "Google Geocoding API", "SMTP Gmail via Nodemailer", "App Store"],
+      "dataModel": {
+        "tables": [
+          { "name": "users", "note": "pseudo, email, mot de passe bcrypt, token de réinitialisation, avatar, note, expérience" },
+          { "name": "users_data", "note": "Avis et notations entre utilisateurs" },
+          { "name": "rate", "note": "Notation de l'application" },
+          { "name": "faq", "note": "Questions soumises par les utilisateurs" }
+        ],
+        "notes": "Les alertes sont volontairement éphémères et vivent en mémoire côté serveur plutôt qu'en base — choix cohérent avec leur durée de vie de quelques minutes, mais qui empêche l'historisation et la montée en charge multi-instance."
+      },
+      "highlights": [
+        "1 314 commits sur 12 mois de développement actif — le projet le plus volumineux du portefeuille en historique",
+        "Application réellement publiée sur l'App Store, premier produit mobile mené jusqu'à la distribution",
+        "Diffusion push ciblée géographiquement par topics départementaux plutôt que par requêtes de proximité, pour tenir la charge sans coût serveur",
+        "Contenu pédagogique localisé en profondeur : 9 fiches × 7 jeux d'illustrations traduites",
+        "Canal temps réel Socket.IO synchronisant simultanément l'app utilisateur, la carte et l'app de modération"
+      ],
+      "learnings": [
+        "Première expérience mobile de bout en bout : conception, développement, publication et modération d'un produit destiné au grand public",
+        "La couche d'authentification de l'API s'appuyait sur un boilerplate Express/JWT open source, ce que le dépôt documente explicitement ; toute la logique d'alertes, le temps réel et les notifications sont écrits sur mesure"
+      ],
+      "tags": ["react-native", "mobile", "app-store", "firebase", "socket-io", "geolocalisation", "i18n", "premiers-secours"],
+      "featured": true
+    },
+
+    {
+      "slug": "teazr",
+      "name": "Teazr",
+      "tagline": "Serveur de jeu multijoueur et son écosystème complet",
+      "category": "gaming",
+      "domain": "Jeu vidéo / serveur multijoueur",
+      "summary": "Serveur de roleplay FiveM en production et le monorepo qui le porte : ressource de jeu maison massive, anticheat, systèmes économiques et de braquage, écran de chargement custom, et une base de données dédiée. C'est le projet racine autour duquel gravitent le CDN, le site vitrine, l'éditeur de wiki et le bot Discord.",
+      "period": { "start": "2025-07", "end": "2026-07", "durationMonths": 13 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "note": "Le dépôt vendorise des ressources open-source et commerciales tierces (voix, ciblage, téléphone, packs d'assets) aux côtés du code maison. Les métriques ci-dessous distinguent les deux.",
+      "role": "Architecture serveur, développement gameplay, infrastructure et exploitation",
+      "repository": { "host": "github", "owner": "Zone-819", "name": "teazr", "private": true },
+      "metrics": {
+        "commits": 311,
+        "luaFiles": 1255,
+        "luaLinesOfCode": 225686,
+        "ownResourceFiles": 134,
+        "repoSizeGb": 2.0,
+        "assets": { "webp": 910, "ycd": 208, "ydr": 153, "png": 132, "jpg": 115 }
+      },
+      "stack": {
+        "languages": ["Lua", "TypeScript", "JavaScript", "SQL"],
+        "runtime": ["FiveM Enhanced", "CitizenFX"],
+        "database": ["MySQL (dump versionné)"],
+        "frontend": ["React (interfaces NUI)", "HTML/CSS/JS (écran de chargement)"],
+        "infra": ["Cloudflare R2 (CDN d'assets)", "server.cfg avec 23 ressources orchestrées"]
+      },
+      "architecture": {
+        "type": "Monorepo de ressources de jeu",
+        "description": "Organisation FiveM par groupes de ressources : cœur de jeu, ressources par défaut, librairies, téléphone, plus une ressource maison principale structurée en client / serveur / partagé / interface, et des scripts custom transverses.",
+        "customResources": ["hoyame (ressource principale : client, server, shared, html)", "load (écran de chargement)", "anti-trigger", "event-logger", "recording", "coords", "tutor", "cdn (panel intégré)"]
+      },
+      "features": [
+        "Ressource de jeu principale couvrant l'économie, les métiers, l'inventaire et la progression",
+        "Mécaniques de braquage et laboratoires avec anticheat de crafting",
+        "Système de garages, dont un garage nautique pour les forces de l'ordre",
+        "Offices d'entreprise et configurations météo dynamiques",
+        "Anti-trigger : protection contre le déclenchement d'événements réseau non légitimes",
+        "Event logger et système d'enregistrement pour l'audit et la modération",
+        "Écran de chargement custom avec vidéo, musique et polices dédiées",
+        "Whitelist et outillage d'administration",
+        "Migration complète vers FiveM Enhanced conduite en cours de projet"
+      ],
+      "integrations": ["Cloudflare R2", "MySQL", "Tebex (via le site)", "Discord (via le bot)"],
+      "highlights": [
+        "311 commits sur 13 mois avec des messages descriptifs détaillant chaque mécanique livrée",
+        "Gitignore de 21 Ko traduisant une gestion fine des assets streamés, volumineux par nature",
+        "Migration d'infrastructure assumée en cours d'exploitation : passage à FiveM Enhanced sans interruption",
+        "Point central d'un écosystème de quatre projets satellites qui communiquent réellement entre eux"
+      ],
+      "related": ["cdn-teazr", "teazr-website", "wiki-editor", "teazy", "new-ui-fivem"],
+      "tags": ["lua", "fivem", "serveur-de-jeu", "anticheat", "monorepo", "production"],
+      "featured": true
+    },
+
+    {
+      "slug": "teazr-website",
+      "name": "Teazr Website & Shop",
+      "tagline": "Site vitrine et boutique en ligne branchée sur une API headless",
+      "category": "site-web",
+      "domain": "E-commerce / gaming",
+      "summary": "Site officiel d'un serveur de jeu : landing marketing, boutique de monnaie virtuelle et d'abonnements connectée à l'API Tebex Headless, wiki joueur à blocs typés, patchnotes versionnés et pages légales. Le client Tebex est écrit intégralement à la main, sans SDK.",
+      "period": { "start": "2026-05", "end": "2026-05", "durationMonths": 1 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception, développement front-end, intégration e-commerce et déploiement",
+      "repository": { "host": "github", "owner": "Zone-819", "name": "website", "private": true },
+      "metrics": { "commits": 13, "sourceFiles": 39, "linesOfCode": 7045, "pages": 11, "components": 13 },
+      "stack": {
+        "languages": ["TypeScript", "SCSS"],
+        "frontend": ["Vite 5", "React 18", "React Router 6", "Framer Motion 11", "Sass"],
+        "payments": ["Tebex Headless API (client écrit sur mesure)"],
+        "auth": ["Cfx.re / FiveM OAuth"],
+        "infra": ["Netlify (fallback SPA, cache immutable sur les assets)", "Cloudflare CDN"],
+        "dependencies": "Aucune librairie UI, aucun gestionnaire d'état"
+      },
+      "architecture": {
+        "type": "SPA React avec données hybrides locales et distantes",
+        "description": "Catalogue produit défini localement pour l'habillage (avantages, badges, ordre) et synchronisé au chargement avec les noms et prix réels de l'API. Le wiki et les patchnotes s'hydratent en cascade : cache local, puis bundle embarqué, puis récupération CDN en arrière-plan."
+      },
+      "features": [
+        "Boutique de 7 offres : 5 packs de monnaie virtuelle et 2 abonnements mensuels",
+        "Synchronisation en direct des noms et prix depuis l'API marchande, avec repli local",
+        "Parcours de paiement en deux temps intégrant une authentification tierce obligatoire entre la création du panier et l'ajout du produit",
+        "Rattachement de l'achat au compte joueur par identifiant numérique unique plutôt que par pseudo",
+        "Traduction des erreurs API brutes en messages compréhensibles par le joueur",
+        "Wiki à blocs typés : paragraphe, titre, liste, encadré (info, astuce, avertissement, danger), code, image, séparateur",
+        "Recherche par titre et mots-clés, liens profonds par paramètre d'URL, temps de lecture calculé",
+        "Patchnotes versionnés en SemVer avec sections typées et mise en avant des nouveautés",
+        "Page de redirection type linktree pour QR codes et liens en bio",
+        "Bandeau cookies, système de notifications maison, trois pages légales complètes",
+        "Drapeau de fonctionnalité masquant la boutique en un seul point de configuration"
+      ],
+      "integrations": ["Tebex Headless API", "Cfx.re OAuth", "Cloudflare CDN", "Netlify"],
+      "dataModel": {
+        "entities": [
+          "Pack { id, category, tebexPackageId, name, tagline, coins, bonus, prix, badge, perks[], featured }",
+          "WikiData { categories[{ articles[{ blocks[] }] }] }",
+          "PatchnotesData { entries[{ version, date, tags[], highlights[], sections{} }] }"
+        ]
+      },
+      "highlights": [
+        "Le tunnel de paiement est la pièce maîtresse : l'API impose une authentification externe au milieu du parcours, gérée par un découpage en deux phases avec reprise du panier au retour",
+        "Client d'API écrit de zéro plutôt qu'avec le SDK officiel, avec gestion des endpoints à portées différentes",
+        "Contrainte de design héritée du jeu respectée par cohérence visuelle jusque sur le site",
+        "Documentation opérationnelle livrée avec le projet : checklist de création des produits et commandes serveur de livraison"
+      ],
+      "related": ["teazr", "cdn-teazr", "wiki-editor"],
+      "tags": ["react", "vite", "e-commerce", "tebex", "oauth", "netlify", "wiki"],
+      "featured": true
+    },
+
+    {
+      "slug": "cdn-teazr",
+      "name": "Teazr CDN Panel",
+      "tagline": "Panel d'upload et pipeline de migration vers un stockage objet",
+      "category": "infrastructure",
+      "domain": "DevOps / gestion d'assets",
+      "summary": "Outillage local de gestion du CDN d'images d'un serveur de jeu hébergé sur Cloudflare R2 : panel web de dépôt par glisser-déposer avec conversion WebP automatique, migration en masse des assets depuis le dépôt de jeu, et sauvegarde bidirectionnelle entre le stockage objet, le disque et Git.",
+      "period": { "start": "2026-05", "end": "2026-05", "durationMonths": 1 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "Zone-819", "name": "cdn", "private": true },
+      "metrics": { "commits": 3, "sourceFiles": 7, "linesOfCode": 612, "panelLinesOfCode": 473, "assetsManaged": 823 },
+      "stack": {
+        "languages": ["JavaScript (Node.js ESM)", "HTML/CSS/JS vanilla"],
+        "backend": ["Express 4", "Multer (upload mémoire, limite 25 Mo)"],
+        "storage": ["Cloudflare R2 via @aws-sdk/client-s3"],
+        "images": ["sharp 0.33 (conversion WebP)"],
+        "dependencies": "Aucun framework front"
+      },
+      "architecture": {
+        "type": "Modules à responsabilité unique",
+        "modules": [
+          { "name": "r2.mjs", "role": "Couche d'accès au stockage objet : client, sanitizers, conversion, upload, listing paginé" },
+          { "name": "server.mjs", "role": "API Express et service du panel statique" },
+          { "name": "migrate.mjs", "role": "Migration batch depuis le dépôt de jeu, avec table de correspondance des dossiers" },
+          { "name": "sync.mjs / backup.mjs / backup-push.mjs", "role": "Miroir local et versionnement Git de la sauvegarde" },
+          { "name": "list.mjs", "role": "Listing en ligne de commande" }
+        ]
+      },
+      "features": [
+        "Panel web en glisser-déposer : prévisualisation, renommage en ligne, curseur de qualité WebP, upload concurrent par pool de 4",
+        "Conversion automatique en WebP de tout fichier déposé, avec récapitulatif du poids économisé",
+        "En-têtes de cache long terme posés à l'upload",
+        "Sanitisation stricte des noms de dossier et de fichier, protégeant contre la traversée de chemin",
+        "Refus explicite en cas de collision, sauf écrasement demandé",
+        "Migration en masse avec correspondance de dossiers, modes simulation, forçage, nettoyage et ciblage partiel",
+        "Suppression par lots et pool de concurrence pour tenir le volume",
+        "Endpoints de lecture et d'écriture du fichier wiki, servant de back-end à l'éditeur",
+        "Sauvegarde locale automatique à chaque dépôt, puis synchronisation et publication Git en une commande"
+      ],
+      "integrations": ["Cloudflare R2", "Git"],
+      "highlights": [
+        "Décision de sécurité explicite : le panel est lié à l'interface de bouclage et n'accepte que les origines locales, ce qui permet à l'éditeur de wiki de dialoguer avec lui sans jamais exposer les identifiants du stockage",
+        "Repli en cascade sur la lecture du wiki : stockage objet, puis sauvegarde locale, puis erreur",
+        "Le script de publication effectue quatre vérifications successives avant d'agir, avec des messages d'erreur explicites",
+        "Bucket privé, exposition uniquement via le domaine CDN"
+      ],
+      "related": ["teazr", "teazr-website", "wiki-editor"],
+      "tags": ["nodejs", "cloudflare-r2", "s3", "webp", "sharp", "devops", "cli"],
+      "featured": false
+    },
+
+    {
+      "slug": "wiki-editor",
+      "name": "Wiki Editor",
+      "tagline": "Éditeur visuel de contenu structuré publiant directement sur le CDN",
+      "category": "outil-cli",
+      "domain": "Outillage interne / CMS headless",
+      "summary": "Éditeur local permettant de composer le wiki d'un site sans manipuler le JSON à la main : gestion des catégories, articles et blocs de contenu typés, avec récupération et publication directes sur le stockage objet. C'est le chaînon éditorial entre le panel CDN et le site public.",
+      "period": { "start": "2026-05", "end": "2026-05", "durationMonths": 1 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "Zone-819", "name": "wiki-editor", "private": true },
+      "metrics": { "commits": 3, "sourceFiles": 5, "linesOfCode": 1402, "blockTypes": 7 },
+      "stack": {
+        "languages": ["TypeScript", "CSS"],
+        "frontend": ["Vite 5", "React 18"],
+        "dependencies": "Aucune dépendance runtime hors React : ni routeur, ni librairie de formulaire, ni librairie de glisser-déposer"
+      },
+      "architecture": {
+        "type": "Application locale mono-composant",
+        "description": "Toute la logique dans un composant unique, avec un proxy de développement redirigeant les appels vers le panel CDN local afin de conserver des requêtes de même origine."
+      },
+      "features": [
+        "Gestion complète des catégories et des articles : ajout, édition, suppression, réordonnancement",
+        "Édition des blocs de contenu selon sept types : paragraphe, titre, liste, encadré, code, image, séparateur",
+        "Génération automatique d'identifiants à partir du titre, avec normalisation des accents et déduplication",
+        "Récupération du contenu publié au démarrage, avec confirmation si des modifications sont en cours",
+        "Publication directe sur le stockage objet en un clic",
+        "Import et export de fichier JSON local",
+        "Indicateur de modifications non sauvegardées et garde à la fermeture de l'onglet"
+      ],
+      "integrations": ["Panel CDN local", "Cloudflare R2 (indirectement)"],
+      "highlights": [
+        "Le proxy de développement est justifié par une décision de sécurité documentée : garder les identifiants du stockage côté serveur pour qu'ils ne se retrouvent jamais dans le bundle navigateur",
+        "Outil réellement utilisé en production éditoriale — les derniers commits sont des ajouts de contenu, pas de code",
+        "1 400 lignes sans aucune dépendance : la complexité est dans la structure des données, pas dans l'outillage"
+      ],
+      "related": ["cdn-teazr", "teazr-website"],
+      "tags": ["react", "vite", "cms", "éditeur", "outil-interne"],
+      "featured": false
+    },
+
+    {
+      "slug": "teazy",
+      "name": "Teazy",
+      "tagline": "Bot Discord de modération, support et assistance IA avec panel web",
+      "category": "outil-cli",
+      "domain": "Communauté / modération",
+      "summary": "Bot Discord servant de modérateur, de guichet de support et d'assistant pour une communauté de joueurs. Combine un système de rangs à quatre niveaux, un ticketing complet, un moteur de réponse IA doté d'une mémoire apprise, et un panel web de composition d'embeds avec prévisualisation fidèle.",
+      "period": { "start": "2025-07", "end": "2026-05", "durationMonths": 10 },
+      "status": "production",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "supersedes": "fivem-discord-bot",
+      "repository": { "host": "github", "owner": "Zone-819", "name": "teazy", "private": true },
+      "metrics": { "commits": 13, "sourceFiles": 94, "linesOfCode": 9435, "prefixCommands": 41, "slashCommands": 31 },
+      "stack": {
+        "languages": ["JavaScript (CommonJS)"],
+        "libraries": ["discord.js 14", "OpenAI SDK 5", "Express 5"],
+        "storage": ["Fichiers JSON plats avec migration de schéma au démarrage"],
+        "frontend": ["SPA vanilla JS pour le panel"]
+      },
+      "architecture": {
+        "type": "Bot mono-process avec panel web embarqué",
+        "description": "Dispatcher central gérant événements et interactions, commandes chargées dynamiquement depuis deux surfaces synchronisées, services isolés pour l'IA et la mémoire, utilitaires extraits pour le ticketing, la maintenance de configuration et le contrôle d'accès, plus un serveur Express lié à l'interface de bouclage pour le panel."
+      },
+      "features": [
+        "Modération complète : bannissement, expulsion, mute, verrouillage de salon, purge, blacklist de mots avec suppression automatique",
+        "Système de rangs maison à quatre niveaux avec matrice de permissions et joker toutes-commandes",
+        "Ticketing : catégories configurables, menu déroulant et boutons, salon privé créé avec permissions calculées, boutons de fermeture et de renommage, détection de ticket déjà ouvert",
+        "Styles d'embed réutilisables référencés par identifiant unique",
+        "Panel web de composition d'embeds : sélection du serveur et du salon, trois modes d'envoi, formulaire complet et prévisualisation rendue comme Discord",
+        "Allowlist de serveurs avec quittance automatique de tout serveur non autorisé, au démarrage comme à l'ajout",
+        "Assistant IA avec persona définie, périmètre de réponse restreint et injection dynamique du contexte de support",
+        "Mémoire questions-réponses : recherche par similarité, extraction de mots-clés, reformulation IA de la réponse mémorisée, compteur d'usage et purge automatique",
+        "Commandes d'harmonisation des noms de salons, avec simulation par défaut avant application",
+        "Attribution de rôle en masse protégée par cinq garde-fous de hiérarchie et de permissions"
+      ],
+      "integrations": ["Discord API", "OpenAI"],
+      "dataModel": {
+        "entities": [
+          "config.json : allowedGuilds[], blacklistedWords[], quatre listes de rangs, embedStyles[] identifiés par UUID, supportChannels[] rattachés à une catégorie et à des rôles staff",
+          "memory.json : qa_pairs[{ question, answer, keywords[], category, usage_count }] + réglages de seuil et de rétention"
+        ]
+      },
+      "highlights": [
+        "Génération automatique des commandes slash à partir des commandes préfixe : les deux surfaces restent synchronisées sans duplication manuelle",
+        "Le panel web construit les embeds en respectant toutes les limites de l'API Discord, par troncature systématique plutôt que par échec",
+        "Refonte du ticketing corrigeant une fragilité réelle : identification par identifiant de catégorie au lieu du nom affiché, plus prise en charge des fils",
+        "Migration de schéma exécutée au démarrage : passage des styles à des identifiants uniques et purge des références orphelines"
+      ],
+      "related": ["teazr"],
+      "tags": ["discord", "openai", "bot", "codegen", "express", "modération", "ticketing"],
+      "featured": true
+    },
+
+    {
+      "slug": "qr-barber",
+      "name": "QR Barber",
+      "tagline": "File d'attente sans rendez-vous accessible par QR code",
+      "category": "app-metier",
+      "domain": "Beauté / gestion de file d'attente",
+      "summary": "Prototype d'application web mobile permettant aux clients d'un salon de coiffure sans rendez-vous de rejoindre une file en scannant un QR code affiché en boutique, puis de suivre leur position et le temps d'attente estimé sans rester sur place.",
+      "period": { "start": "2024-03", "end": "2024-03", "durationMonths": 1 },
+      "status": "prototype",
+      "originality": "original",
+      "confidence": "haute",
+      "role": "Conception et développement",
+      "repository": { "host": "github", "owner": "hoyame", "name": "qr-barber", "private": false },
+      "metrics": { "commits": 4, "sourceFiles": 8, "linesOfCode": 386 },
+      "stack": {
+        "languages": ["TypeScript", "JavaScript", "SCSS"],
+        "frontend": ["React 18", "Webpack 5 configuré à la main", "Babel 7", "Sass", "axios"],
+        "backend": ["Express 4", "cors", "request-ip"],
+        "storage": ["En mémoire"]
+      },
+      "architecture": {
+        "type": "Front et back séparés",
+        "description": "Application React buildée par une configuration Webpack écrite à la main, adossée à une petite API Express maintenant la file en mémoire."
+      },
+      "features": [
+        "Identification anonyme du client par identifiant unique persisté en cookie",
+        "Ajout à la file d'attente en un geste, sans compte ni saisie",
+        "Calcul de la position dans la file et du temps d'attente estimé",
+        "Rafraîchissement automatique de la position côté client",
+        "Décompte serveur mettant à jour les temps d'attente en continu"
+      ],
+      "highlights": [
+        "Configuration Webpack écrite manuellement plutôt que via un générateur — exercice volontaire de compréhension du bundler",
+        "Parcours client sans friction : ni compte, ni application à installer, ni saisie d'information personnelle"
+      ],
+      "learnings": [
+        "Prototype de quelques jours, resté au stade de la démonstration : file unique sans notion de coiffeur, état non persisté, plusieurs points techniques identifiés et documentés dans le code comme dette assumée",
+        "Le besoin a été repris et traité industriellement quatre ans plus tard dans Blvck Studio, avec file d'attente walk-in persistée et écran d'affichage en salon"
+      ],
+      "related": ["blvck-studio-app"],
+      "tags": ["react", "webpack", "express", "file-attente", "prototype"],
+      "featured": false
+    }
+  ],
+
+  "ecosystemAdditions": {
+    "description": "Ces projets forment une chaîne supplémentaire, à ajouter à ecosystem.chains du fichier principal.",
+    "chains": [
+      {
+        "name": "Écosystème Teazr",
+        "flow": ["teazr", "cdn-teazr", "wiki-editor", "teazr-website", "teazy"],
+        "description": "Les assets du serveur de jeu sont migrés en masse vers un stockage objet par le panel CDN ; l'éditeur de wiki publie le contenu éditorial sur ce même stockage via le panel ; le site vitrine consomme le wiki et les images tout en gérant la boutique ; le bot Discord y puise les visuels de ses embeds. Cinq dépôts qui s'appellent réellement entre eux autour d'un produit unique."
+      },
+      {
+        "name": "Reprise d'un besoin métier",
+        "flow": ["qr-barber", "blvck-studio-app"],
+        "description": "Un prototype de file d'attente pour salon de coiffure en 2024, repris et traité industriellement en 2025 avec persistance, écran d'affichage en salon et arbitrage des demandes."
+      }
+    ],
+    "profileUpdates": {
+      "yearsCovered": "2020 – 2026",
+      "newLanguages": ["Lua"],
+      "newDomains": ["Sécurité civile et premiers secours", "E-commerce", "Infrastructure et stockage objet"],
+      "newPatterns": [
+        "Outillage interne construit autour d'un produit plutôt qu'acheté : panel de CDN, éditeur de contenu et bot de communauté conçus sur mesure pour un même écosystème",
+        "Intégration d'API tierces sans SDK, en écrivant le client à la main pour maîtriser les cas limites"
+      ]
+    }
+  }
+}

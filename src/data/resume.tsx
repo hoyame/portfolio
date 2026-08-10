@@ -8,24 +8,131 @@ export const DATA = {
   location: "Aix-les-Bains, France",
   locationLink: "https://www.google.com/maps/place/sanfrancisco",
   description:
-    "Passionné par l'entrepreneuriat et toujours en quête de nouvelles opportunités.",
+    "Développeur full-stack. Je conçois et livre des produits complets, du premier commit à la production.",
   summary:
-    "J'ai quitté le parcours scolaire plus tôt pour me concentrer sur des apprentissages que je jugeais plus utiles. Pendant mon adolescence, j'ai acquis des compétences en gestion de communautés en ligne, en programmation, et en entrepreneuriat. J'ai ensuite tenté de réintégrer le système scolaire pour obtenir un diplôme en programmation, mais j'ai abandonné en raison de la longueur du cursus et du manque de pertinence que je percevais. Aujourd'hui, je souhaite développer mes compétences dans les domaines des relations humaines, du commerce, ainsi que dans la gestion d'équipes et d'entreprises.",
+    "Développeur full-stack autodidacte, je conçois et livre des produits complets : plateformes SaaS, applications métier déployées chez des clients, outils en ligne de commande et applications mobiles. Ces dernières années, j'ai mené une trentaine de projets de bout en bout — de la conception à l'exploitation en production — sur des secteurs variés : transport et logistique, restauration, prise de rendez-vous, force de vente, interfaces de jeu. Je travaille principalement avec TypeScript, React et Next.js, Supabase et Stripe, avec un goût marqué pour l'automatisation et les architectures pilotées par la configuration.",
   avatarUrl: "/me.png",
   skills: [
-    "React",
-    "Next.js",
-    "Typescript",
-    "Node.js",
-    "Python",
-    "OpenAI",
-    "SCSS",
-    "HTML & CSS",
-    "Javascript",
-    "Lua",
-    "C",
-    "IA Tools",
-    "Git",
+    "Développement full-stack",
+    "Architecture applicative",
+    "Conception d'API REST",
+    "Modélisation de bases de données",
+    "Développement mobile",
+    "Intégration de paiements",
+    "Automatisation et génération de code",
+    "Intégration d'IA",
+    "Temps réel",
+    "Sécurité applicative",
+    "Déploiement et exploitation",
+    "Référencement technique (SEO)",
+  ],
+  techStack: [
+    {
+      label: "Langages",
+      items: ["TypeScript", "JavaScript", "SQL", "Lua", "Dart", "Python", "C"],
+    },
+    {
+      label: "Front-end",
+      items: [
+        "React 18 / 19",
+        "Next.js 14 → 16 (App Router)",
+        "Vite",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Radix UI",
+        "Headless UI",
+        "SCSS",
+        "Framer Motion",
+        "Redux Toolkit",
+        "Zustand",
+        "Jotai",
+        "React Hook Form",
+        "Zod",
+        "Recharts",
+      ],
+    },
+    {
+      label: "Back-end & API",
+      items: [
+        "Node.js",
+        "Express",
+        "Fastify",
+        "Deno (Edge Functions)",
+        "API REST",
+        "GraphQL",
+        "Webhooks",
+        "WebSocket / SSE",
+      ],
+    },
+    {
+      label: "Données & temps réel",
+      items: [
+        "PostgreSQL",
+        "Supabase (Auth, Storage, Realtime)",
+        "Row Level Security",
+        "MySQL / Sequelize",
+        "Upstash Redis",
+        "AsyncStorage / SQLite",
+      ],
+    },
+    {
+      label: "Mobile",
+      items: [
+        "React Native / Expo",
+        "Capacitor (iOS / Android)",
+        "Flutter",
+        "PWA",
+      ],
+    },
+    {
+      label: "Paiements & intégrations",
+      items: [
+        "Stripe (Checkout, Payment Links, webhooks)",
+        "OpenAI",
+        "Resend / AWS SES",
+        "IMAP / SMTP",
+        "Discord API",
+        "Google Maps & Places",
+        "Sanity",
+        "API Twitch, Kick, Spotify",
+      ],
+    },
+    {
+      label: "Média & streaming",
+      items: [
+        "ffmpeg",
+        "MediaMTX (RTMP / HLS)",
+        "WebRTC",
+        "Chromium headless (CDP)",
+        "Remotion",
+        "whisper.cpp",
+        "ESC/POS & LPD",
+      ],
+    },
+    {
+      label: "Outillage & qualité",
+      items: [
+        "Git",
+        "Webpack",
+        "esbuild",
+        "Jest",
+        "ESLint / Prettier",
+        "Commander (CLI)",
+        "sharp",
+        "jsPDF",
+      ],
+    },
+    {
+      label: "Infrastructure",
+      items: [
+        "Netlify",
+        "VPS Linux & systemd",
+        "Caddy (reverse proxy)",
+        "GitHub Actions",
+        "Déploiement on-premise",
+        "Let's Encrypt",
+      ],
+    },
   ],
   softSkills: [
     "Créativité",
@@ -47,7 +154,6 @@ export const DATA = {
   ],
   contact: {
     email: "contact@hoyame.fr",
-    tel: "+33 6 02 22 78 25",
     social: {
       GitHub: {
         name: "GitHub",
@@ -63,19 +169,6 @@ export const DATA = {
 
         navbar: true,
       },
-      X: {
-        name: "X",
-        url: "https://x.com/@iamhoyame",
-        icon: Icons.x,
-
-        navbar: true,
-      },
-      Youtube: {
-        name: "Youtube",
-        url: "https://youtube.com/@iamhoyame",
-        icon: Icons.youtube,
-        navbar: true,
-      },
       email: {
         name: "Send Email",
         url: "mailto:contact@hoyame.fr",
@@ -85,70 +178,7 @@ export const DATA = {
       },
     },
   },
-  business: [
-    
-    {
-      company: "Tavifleet's",
-      href: "",
-      badges: [],
-      location: "À distance",
-      title: "Président",
-      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQF-q-W-r_FpKQ/company-logo_200_200/company-logo_200_200/0/1738417180432?e=1748476800&v=beta&t=8X3eV7Dpf135AyJLFGAIV1jS9xl137xtogXwxtwTmXw",
-      start: "Janvier 2025",
-      end: "En cours",
-      description:
-        "Entreprise dediée au convoyage de véhicules.",
-    },
-    {
-      company: "HMA Greater",
-      href: "",
-      badges: [],
-      location: "À distance",
-      title: "Président",
-      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQFbYktX28LSnw/company-logo_200_200/B4EZU.IORkHMAI-/0/1740504098393/hmagreater_logo?e=1748476800&v=beta&t=GnlHuskEedPjE-WJQYDNhl8STiMWgA7fi6R0XKEfsco",
-      start: "Novembre 2024",
-      end: "En cours",
-      description:
-        "Groupe spécialisé dans le transport, la location, le commerce et le nettoyage.",
-    },
-    {
-      company: "Hoxtio",
-      href: "",
-      badges: [],
-      location: "À distance",
-      title: "Chief Executive Officier",
-      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQFMwAETodfHPQ/company-logo_200_200/B4EZU0UxR0G0AI-/0/1740339615403/hoxtio_logo?e=1748476800&v=beta&t=LCaDQor_HsMzG31r07uLUpnjt5MPAIBFIWkk1acFm8E",
-      start: "Fevrier 2024",
-      end: "En cours",
-      description:
-        "Entreprise spécialisée dans l'informatique, intégrant la programmation, l'intelligence artificielle, le design et la publicité.",
-    },
-  ],
   work: [
-    {
-      company: "General Electric",
-      href: "",
-      badges: [],
-      location: "",
-      title: "Monteur",
-      logoUrl: "https://media.cdn.gradconnection.com/uploads/f3d4fc87-68af-409b-be7e-34dd774bd966-GE_VERNOVA_LOGO.png",
-      start: "Février 2024",
-      end: "Juin 2024",
-      description:
-        "Contrôle qualité pour s'assurer de la conformité des pièces. Utilisation de logiciels (SAP, base ANDONS). Transport des pièces à nettoyer ou à monter pour les opérateurs. Gestion des problèmes liés aux manquants dans les stocks. Suivi des différentes affaires/travées, du nettoyage jusqu’au montage.",
-    },
-    {
-      company: "Kom Transport",
-      href: "",
-      badges: [],
-      location: "",
-      title: "Livreur Amazon",
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHdHu4uqnszX0jYVHK-lr5Q6dX5GwbXHXNRg&s",
-      start: "Octobre 2023",
-      end: "Novembre 2023",
-      description:
-        "Conduire en toute sécurité jusqu’aux adresses de livraison prévues. Livrer les colis aux clients en respectant les délais. Interagir professionnellement avec les clients lors de la livraison. Utiliser des outils pour enregistrer les signatures ou les confirmations de livraison.",
-    },
     {
       company: "Indépendant",
       href: "",
@@ -172,30 +202,6 @@ export const DATA = {
       end: "Mai 2021",
       description:
         "Développement d'interfaces utilisateurs pour intégration sur un serveur de jeu. Compétences : Design d’interface utilisateur, Développement front-end.",
-    },
-    {
-      company: "Chez Poncho",
-      href: "",
-      badges: [],
-      location: "",
-      title: "Stage - Restauration rapide",
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV3ESh-XFtR5WHbGpJ-0Mkpg4XuI4IowhtYA&s",
-      start: "Mai 2021",
-      end: "Juin 2021",
-      description:
-        "Assurer la préparation efficace des commandes tout en maintenant un service client de qualité et en résolvant rapidement les problèmes en cuisine ou au comptoir.",
-    },
-    {
-      company: "AS Media Concept",
-      href: "",
-      badges: [],
-      location: "",
-      title: "Stage - Réparateur de téléphones",
-      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe5E97iYdkc6FjXL0iH__hvHCQHiKh1u3QKw&s",
-      start: "Février 2020",
-      end: "Avril 2020",
-      description:
-        "Effectuer des diagnostics pour identifier les problèmes techniques des téléphones et proposer des solutions de réparation appropriées.",
     },
   ],
   education: [

@@ -142,3 +142,56 @@ code[data-line-numbers-max-digits="2"] > [data-line]::before {
 code[data-line-numbers-max-digits="3"] > [data-line]::before {
   width: 3rem;
 }
+body:has(.cv-page) {
+  max-width: 56rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  body:has(.cv-page) {
+    max-width: none;
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  .cv-page {
+    max-width: none;
+    font-size: 10pt;
+  }
+
+  .cv-page .text-muted-foreground {
+    color: #333;
+  }
+
+  .cv-page section {
+    margin-top: 14pt;
+    break-inside: auto;
+  }
+
+  .cv-page h2 {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  .cv-page p,
+  .cv-page li {
+    orphans: 2;
+    widows: 2;
+  }
+
+  .cv-page ul {
+    break-inside: auto;
+  }
+
+  nav,
+  [data-print-hidden] {
+    display: none !important;
+  }
+}
